@@ -85,12 +85,33 @@ pnpm start
 
 ### 4. API 테스트
 
+#### 방법 1: Swagger UI (추천)
+
+브라우저에서 http://localhost:3001/api-docs 열기
+
+#### 방법 2: curl
+
 ```bash
 curl http://localhost:3001/api/health
 # {"status":"ok","message":"Server is running"}
 ```
 
 ## 📖 API 문서
+
+### Swagger UI (대화형 API 문서)
+
+서버를 실행한 후 브라우저에서 Swagger UI를 통해 API를 테스트할 수 있습니다:
+
+**🔗 http://localhost:3001/api-docs**
+
+Swagger UI에서 다음을 할 수 있습니다:
+
+- 📝 모든 API 엔드포인트 확인
+- 🧪 브라우저에서 직접 API 테스트
+- 🔐 JWT 토큰으로 인증된 요청 테스트
+- 📋 요청/응답 스키마 확인
+
+### Markdown API 문서
 
 전체 API 문서는 [API.md](./API.md)를 참고하세요.
 
@@ -205,7 +226,32 @@ const { data } = await api.post("/posts", formData);
 
 ## 🧪 테스트 도구
 
-### Postman 또는 Thunder Client
+### 1. Swagger UI (가장 쉬운 방법) ⭐
+
+1. **브라우저에서 열기**
+
+   ```
+   http://localhost:3001/api-docs
+   ```
+
+2. **로그인하여 토큰 받기**
+
+   - `POST /api/users/login` 섹션 열기
+   - "Try it out" 클릭
+   - username과 password 입력
+   - "Execute" 클릭
+   - 응답에서 `token` 복사
+
+3. **인증 설정**
+
+   - 페이지 상단의 🔒 "Authorize" 버튼 클릭
+   - `Bearer {token}` 입력 (Bearer 다음에 공백 후 토큰)
+   - "Authorize" 클릭
+
+4. **API 테스트**
+   - 이제 모든 API를 브라우저에서 직접 테스트 가능!
+
+### 2. Postman 또는 Thunder Client
 
 1. **로그인 요청**
 

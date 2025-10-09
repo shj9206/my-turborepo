@@ -4,6 +4,8 @@ const cors = require("cors");
 const socket = require("socket.io");
 const dotenv = require("dotenv");
 const path = require("path");
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpecs = require("./swagger");
 
 // Load environment variables from the .env file next to this script
 dotenv.config({ path: path.join(__dirname, ".env") });
@@ -53,11 +55,43 @@ mongoose
     console.log(err);
   });
 
+/* Swagger UI */
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpecs, {
+    customCss: ".swagger-ui .topbar { display: none }",
+    customSiteTitle: "Social Media API Docs",
+  })
+);
+
 /* API 라우터 */
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 
-/* Health check endpoint */
+/**
+ * @swagger
+ * /api/health:
+ *   get:
+ *     summary: Health check
+ *     description: 서버 상태 확인
+ *     tags: [Health]
+ *     security: []
+ *     responses:
+ *       200:
+ *         description: 서버 정상 작동
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: ok
+ *                 message:
+ *                   type: string
+ *                   example: Server is running
+ */
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok", message: "Server is running" });
 });

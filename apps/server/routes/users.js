@@ -32,7 +32,69 @@ cloudinary.config({
    인증 관련 API
    =================== */
 
-// POST /api/users/register - 회원가입
+/**
+ * @swagger
+ * /users/register:
+ *   post:
+ *     summary: 회원가입
+ *     description: 새로운 사용자를 등록합니다
+ *     tags: [Authentication]
+ *     security: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - username
+ *               - firstname
+ *               - lastname
+ *               - password
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 description: 사용자명
+ *               firstname:
+ *                 type: string
+ *                 description: 이름
+ *               lastname:
+ *                 type: string
+ *                 description: 성
+ *               password:
+ *                 type: string
+ *                 format: password
+ *                 description: 비밀번호
+ *               image:
+ *                 type: string
+ *                 format: binary
+ *                 description: 프로필 이미지 (선택)
+ *     responses:
+ *       201:
+ *         description: 회원가입 성공
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: 회원가입이 완료되었습니다
+ *                 token:
+ *                   type: string
+ *                   description: JWT 토큰
+ *                 user:
+ *                   $ref: '#/components/schemas/User'
+ *       400:
+ *         description: 잘못된 요청
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 router.post("/register", upload.single("image"), async (req, res) => {
   try {
     const { username, firstname, lastname, password } = req.body;
@@ -95,7 +157,57 @@ router.post("/register", upload.single("image"), async (req, res) => {
   }
 });
 
-// POST /api/users/login - 로그인
+/**
+ * @swagger
+ * /users/login:
+ *   post:
+ *     summary: 로그인
+ *     description: 사용자 인증 및 토큰 발급
+ *     tags: [Authentication]
+ *     security: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - username
+ *               - password
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 example: john_doe
+ *               password:
+ *                 type: string
+ *                 format: password
+ *                 example: password123
+ *     responses:
+ *       200:
+ *         description: 로그인 성공
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: 로그인 성공
+ *                 token:
+ *                   type: string
+ *                   description: JWT 토큰
+ *                 user:
+ *                   $ref: '#/components/schemas/User'
+ *       401:
+ *         description: 인증 실패
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 router.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -150,7 +262,35 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// GET /api/users/me - 내 정보 조회
+/**
+ * @swagger
+ * /users/me:
+ *   get:
+ *     summary: 내 정보 조회
+ *     description: 현재 로그인한 사용자의 정보를 조회합니다
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: 사용자 정보 조회 성공
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 user:
+ *                   $ref: '#/components/schemas/User'
+ *       401:
+ *         description: 인증 필요
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 router.get("/me", verifyToken, async (req, res) => {
   try {
     const user = await User.findById(req.user._id)
@@ -184,7 +324,37 @@ router.get("/me", verifyToken, async (req, res) => {
    사용자 관련 API
    =================== */
 
-// GET /api/users - 모든 사용자 조회
+/**
+ * @swagger
+ * /users:
+ *   get:
+ *     summary: 모든 사용자 조회
+ *     description: 등록된 모든 사용자 목록을 조회합니다
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: 사용자 목록 조회 성공
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 users:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/User'
+ *       401:
+ *         description: 인증 필요
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 router.get("/", verifyToken, async (req, res) => {
   try {
     const users = await User.find({}).select(
@@ -245,7 +415,42 @@ router.get("/:id/profile", verifyToken, async (req, res) => {
    친구 관련 API
    =================== */
 
-// POST /api/users/:id/friend-request - 친구 요청 보내기
+/**
+ * @swagger
+ * /users/{id}/friend-request:
+ *   post:
+ *     summary: 친구 요청 보내기
+ *     description: 특정 사용자에게 친구 요청을 보냅니다
+ *     tags: [Friends]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: 친구 요청을 보낼 사용자 ID
+ *     responses:
+ *       200:
+ *         description: 친구 요청 성공
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Success'
+ *       400:
+ *         description: 잘못된 요청
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       404:
+ *         description: 사용자를 찾을 수 없음
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 router.post("/:id/friend-request", verifyToken, async (req, res) => {
   try {
     const currentUser = await User.findById(req.user._id);
@@ -296,7 +501,36 @@ router.post("/:id/friend-request", verifyToken, async (req, res) => {
   }
 });
 
-// PUT /api/users/:id/accept-friend - 친구 요청 수락
+/**
+ * @swagger
+ * /users/{id}/accept-friend:
+ *   put:
+ *     summary: 친구 요청 수락
+ *     description: 받은 친구 요청을 수락합니다
+ *     tags: [Friends]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: 친구 요청을 보낸 사용자 ID
+ *     responses:
+ *       200:
+ *         description: 친구 요청 수락 성공
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Success'
+ *       400:
+ *         description: 잘못된 요청
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 router.put("/:id/accept-friend", verifyToken, async (req, res) => {
   try {
     const currentUser = await User.findById(req.user._id);
