@@ -71,7 +71,7 @@ app.use("/api/posts", postRoutes);
 
 /**
  * @swagger
- * /api/health:
+ * /health:
  *   get:
  *     summary: Health check
  *     description: 서버 상태 확인
