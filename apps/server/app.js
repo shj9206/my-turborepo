@@ -21,7 +21,7 @@ const app = express();
 // CORS 설정 - React 앱에서 API 호출 가능하도록
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:3001",
+    origin: process.env.CLIENT_URL || "http://localhost:3000",
     credentials: true,
   })
 );

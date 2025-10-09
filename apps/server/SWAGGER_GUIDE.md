@@ -17,7 +17,7 @@ pnpm start
 
 브라우저에서 다음 주소로 접속:
 
-**🔗 http://localhost:3001/api-docs**
+**🔗 http://localhost:3000/api-docs**
 
 ## 🔐 인증 설정
 
@@ -195,7 +195,7 @@ Swagger UI에서 제공되는 API 카테고리:
 ### 404 Not Found
 
 - 서버가 실행 중인지 확인
-- URL이 `http://localhost:3001/api-docs`인지 확인
+- URL이 `http://localhost:3000/api-docs`인지 확인
 
 ## 📖 추가 리소스
 
