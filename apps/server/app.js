@@ -1,15 +1,9 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const session = require("express-session");
-const cookieParser = require("cookie-parser");
-const passport = require("passport");
-const LocalStrategy = require("passport-local");
+const cors = require("cors");
 const socket = require("socket.io");
 const dotenv = require("dotenv");
-const flash = require("connect-flash");
 const path = require("path");
-const Post = require("./models/Post");
-const User = require("./models/User");
 
 // Load environment variables from the .env file next to this script
 dotenv.config({ path: path.join(__dirname, ".env") });
@@ -21,29 +15,20 @@ const postRoutes = require("./routes/posts");
 const userRoutes = require("./routes/users");
 const app = express();
 
-app.set("view engine", "ejs");
-
 /* Middleware */
-app.use(cookieParser(process.env.SECRET));
+// CORS 설정 - React 앱에서 API 호출 가능하도록
 app.use(
-  session({
-    secret: process.env.SECRET,
-    resave: false,
-    saveUninitialized: false,
+  cors({
+    origin: process.env.CLIENT_URL || "http://localhost:3001",
+    credentials: true,
   })
 );
-app.use(flash());
 
-/* Passport setup */
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
-
-/* Middleware */
+// JSON 파싱
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// 정적 파일 (이미지 등)
 app.use(express.static("public"));
 
 /* MongoDB Connection */
@@ -68,18 +53,14 @@ mongoose
     console.log(err);
   });
 
-/* Template 파일에 변수 전송 */
-app.use((req, res, next) => {
-  res.locals.user = req.user;
-  res.locals.login = req.isAuthenticated();
-  res.locals.error = req.flash("error");
-  res.locals.success = req.flash("success");
-  next();
-});
+/* API 라우터 */
+app.use("/api/users", userRoutes);
+app.use("/api/posts", postRoutes);
 
-/* Routers */
-app.use("/", userRoutes);
-app.use("/", postRoutes);
+/* Health check endpoint */
+app.get("/api/health", (req, res) => {
+  res.json({ status: "ok", message: "Server is running" });
+});
 
 const server = app.listen(port, () => {
   console.log("App is running on port " + port);
