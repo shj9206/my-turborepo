@@ -152,7 +152,7 @@ const options = {
       },
     ],
   },
-  apis: ["./routes/*.js", "./app.js"], // Swagger 주석이 있는 파일 경로
+  apis: ["./routes/**/*.js", "./app.js"], // Swagger 주석이 있는 파일 경로
 };
 
 const specs = swaggerJsdoc(options);

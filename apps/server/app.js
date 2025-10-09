@@ -15,6 +15,7 @@ const onlineChatUsers = {};
 
 const postRoutes = require("./routes/posts");
 const userRoutes = require("./routes/users");
+const aladinRoutes = require("./routes/aladin/list");
 const app = express();
 
 /* Middleware */
@@ -68,6 +69,7 @@ app.use(
 /* API 라우터 */
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
+app.use("/api/list", aladinRoutes);
 
 /**
  * @swagger
