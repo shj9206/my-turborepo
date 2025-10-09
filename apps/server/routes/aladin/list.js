@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { buildQueryString } = require("@repo/util");
 
 const aladinListUrl = "http://www.aladin.co.kr/ttb/api/ItemList.aspx";
 const aladinListUrlWithKey = `${aladinListUrl}?ttbkey=${process.env.ALADIN_TTB_KEY}`;
@@ -62,16 +63,6 @@ const aladinListUrlWithKey = `${aladinListUrl}?ttbkey=${process.env.ALADIN_TTB_K
 
  
  */
-/**
- * URL 파라미터를 쿼리 스트링으로 변환
- * @param {Object} params - URL 파라미터 객체
- * @returns {string} 쿼리 스트링
- */
-const buildQueryString = (params) => {
-  return Object.entries(params)
-    .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
-    .join("&");
-};
 
 router.get("/", async (req, res) => {
   try {
