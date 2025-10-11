@@ -2,6 +2,35 @@ const express = require("express");
 const router = express.Router();
 const Favorite = require("../../models/Favorite");
 const { verifyToken } = require("../../middleware/auth");
+
+/**
+ * 알라딘 API 응답 데이터에 isfavorit 필드를 추가하는 공통 함수
+ * @param {Object} data - 알라딘 API 응답 데이터
+ * @param {Object} user - 로그인한 사용자 객체 (optionalAuth 또는 verifyToken을 통해 전달)
+ * @returns {Object} isfavorit 필드가 추가된 데이터
+ */
+const addIsFavoritField = async (data, user) => {
+  if (!data || !data.item || !Array.isArray(data.item)) {
+    return data;
+  }
+
+  // 사용자가 로그인되어 있으면 favorite 목록 조회
+  let favoriteItemIds = [];
+  if (user && user._id) {
+    const favorites = await Favorite.find({ userId: user._id }).select(
+      "itemId"
+    );
+    favoriteItemIds = favorites.map((fav) => fav.itemId);
+  }
+
+  // 각 item에 isfavorit 필드 추가
+  data.item = data.item.map((item) => ({
+    ...item,
+    isfavorit: favoriteItemIds.includes(item.isbn13 || item.isbn),
+  }));
+
+  return data;
+};
 /**
  * @swagger
  * /favorit:
@@ -194,7 +223,7 @@ router.post("/", verifyToken, async (req, res) => {
  *       500:
  *         description: 서버 오류
  */
-router.get("/:userId",verifyToken, async (req, res) => {
+router.get("/:userId", verifyToken, async (req, res) => {
   try {
     const { userId } = req.params;
     const { page = 1, limit = 20, sort = "newest" } = req.query;
@@ -316,3 +345,4 @@ router.get("/:userId/:itemId", async (req, res) => {
 });
 
 module.exports = router;
+module.exports.addIsFavoritField = addIsFavoritField;

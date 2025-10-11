@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const { buildQueryString } = require("@repo/util");
+const { optionalAuth } = require("../../middleware/auth");
+const { addIsFavoritField } = require("./favorit");
 
 const aladinListUrl = "http://www.aladin.co.kr/ttb/api/ItemList.aspx";
 const aladinListUrlWithKey = `${aladinListUrl}?ttbkey=${process.env.ALADIN_TTB_KEY}`;
@@ -64,7 +66,7 @@ const aladinListUrlWithKey = `${aladinListUrl}?ttbkey=${process.env.ALADIN_TTB_K
  
  */
 
-router.get("/", async (req, res) => {
+router.get("/", optionalAuth, async (req, res) => {
   try {
     const {
       QueryType = "ItemNewAll",
@@ -122,7 +124,7 @@ router.get("/", async (req, res) => {
       });
     }
 
-    const data = await response.json();
+    let data = await response.json();
 
     // 응답 데이터 검증
     if (!data) {
@@ -131,6 +133,9 @@ router.get("/", async (req, res) => {
         message: "알라딘 API로부터 데이터를 받지 못했습니다.",
       });
     }
+
+    // isfavorit 필드 추가 (공통 함수 사용)
+    data = await addIsFavoritField(data, req.user);
 
     res.json(data);
   } catch (error) {
