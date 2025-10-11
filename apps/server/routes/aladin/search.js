@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router();
 const { buildQueryString } = require("@repo/util");
 
-const aladinSearchUrl = "http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?";
+const aladinSearchUrl = "http://www.aladin.co.kr/ttb/api/ItemSearch.aspx";
 
-const aladinSearchUrlWithKey = `${aladinSearchUrl}ttbkey=${process.env.ALADIN_TTB_KEY}`;
+const aladinSearchUrlWithKey = `${aladinSearchUrl}?ttbkey=${process.env.ALADIN_TTB_KEY}`;
 
 /**
  * @swagger

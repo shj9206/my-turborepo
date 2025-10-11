@@ -17,6 +17,7 @@ const postRoutes = require("./routes/posts");
 const userRoutes = require("./routes/users");
 const aladinRoutes = require("./routes/aladin/list");
 const aladinSearchRoutes = require("./routes/aladin/search");
+const aladinProductRoutes = require("./routes/aladin/product");
 const app = express();
 
 /* Middleware */
@@ -72,6 +73,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/list", aladinRoutes);
 app.use("/api/search", aladinSearchRoutes);
+app.use("/api/product", aladinProductRoutes);
 /**
  * @swagger
  * /health:
