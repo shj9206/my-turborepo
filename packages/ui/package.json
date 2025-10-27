@@ -6,10 +6,10 @@
     "./*": "./src/*.tsx"
   },
   "scripts": {
+    "dev": "storybook dev -p 6006",
     "lint": "eslint . --max-warnings 0",
     "generate:component": "turbo gen react-component",
     "check-types": "tsc --noEmit",
-    "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
   "devDependencies": {

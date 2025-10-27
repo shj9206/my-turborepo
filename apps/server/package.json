@@ -1,13 +1,13 @@
 {
-  "name": "myMonorepo-server",
+  "name": "server",
   "version": "1.0.0",
   "description": "My Monorepo Server",
   "main": "app.js",
   "scripts": {
     "start": "npx nodemon app.js",
-    "dev:ts": "npx tsx app.ts",
     "build": "tsc",
-    "start:prod": "node dist/app.js"
+    "start:prod": "node dist/app.js",
+    "dev": "nodemon app.js --turbopack --port 8080"
   },
   "author": "",
   "license": "ISC",
