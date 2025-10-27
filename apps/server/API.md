@@ -2,7 +2,7 @@
 
 ## 기본 정보
 
-- **Base URL**: `http://localhost:3001/api`
+- **Base URL**: `http://localhost:3000/api`
 - **인증 방식**: JWT Bearer Token
 - **Content-Type**: `application/json`
 
@@ -18,7 +18,7 @@ MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/?retryWrites=tru
 SECRET=your-secret-key-here-change-this-in-production
 
 # Server Port
-PORT=3001
+PORT=3000
 
 # Client URL (CORS 설정용)
 CLIENT_URL=http://localhost:3000
@@ -461,7 +461,7 @@ Authorization: Bearer <token>
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:3001/api",
+  baseURL: "http://localhost:3000/api",
   headers: {
     "Content-Type": "application/json",
   },
@@ -634,7 +634,7 @@ WebSocket은 기존 구현이 유지됩니다:
 ```javascript
 import io from "socket.io-client";
 
-const socket = io("http://localhost:3001/chat");
+const socket = io("http://localhost:3000/chat");
 
 socket.on("connect", () => {
   socket.emit("newUser", {
@@ -676,7 +676,7 @@ pnpm start
 4. API 테스트:
 
 ```bash
-curl http://localhost:3001/api/health
+curl http://localhost:3000/api/health
 # {"status":"ok","message":"Server is running"}
 ```
 

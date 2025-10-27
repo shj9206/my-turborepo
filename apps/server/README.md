@@ -61,7 +61,7 @@ MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/?retryWrites=tru
 SECRET=your-secret-key-change-this
 
 # Server Port
-PORT=3001
+PORT=3000
 
 # Client URL (React 앱 주소)
 CLIENT_URL=http://localhost:3000
@@ -81,16 +81,37 @@ DEFAULT_PROFILE_PIC=https://via.placeholder.com/150
 pnpm start
 ```
 
-서버가 `http://localhost:3001`에서 실행됩니다.
+서버가 `http://localhost:3000`에서 실행됩니다.
 
 ### 4. API 테스트
 
+#### 방법 1: Swagger UI (추천)
+
+브라우저에서 http://localhost:3000/api-docs 열기
+
+#### 방법 2: curl
+
 ```bash
-curl http://localhost:3001/api/health
+curl http://localhost:3000/api/health
 # {"status":"ok","message":"Server is running"}
 ```
 
 ## 📖 API 문서
+
+### Swagger UI (대화형 API 문서)
+
+서버를 실행한 후 브라우저에서 Swagger UI를 통해 API를 테스트할 수 있습니다:
+
+**🔗 http://localhost:3000/api-docs**
+
+Swagger UI에서 다음을 할 수 있습니다:
+
+- 📝 모든 API 엔드포인트 확인
+- 🧪 브라우저에서 직접 API 테스트
+- 🔐 JWT 토큰으로 인증된 요청 테스트
+- 📋 요청/응답 스키마 확인
+
+### Markdown API 문서
 
 전체 API 문서는 [API.md](./API.md)를 참고하세요.
 
@@ -130,7 +151,7 @@ curl http://localhost:3001/api/health
 
 #### 채팅
 
-- WebSocket: `ws://localhost:3001/chat`
+- WebSocket: `ws://localhost:3000/chat`
 
 ## 🔐 인증 방식
 
@@ -139,7 +160,7 @@ JWT (JSON Web Token) 기반 인증을 사용합니다.
 ### 1. 로그인/회원가입으로 토큰 받기
 
 ```javascript
-const response = await fetch("http://localhost:3001/api/users/login", {
+const response = await fetch("http://localhost:3000/api/users/login", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({ username: "john", password: "pass123" }),
@@ -153,7 +174,7 @@ localStorage.setItem("token", token);
 ### 2. API 요청 시 토큰 포함
 
 ```javascript
-const response = await fetch("http://localhost:3001/api/posts", {
+const response = await fetch("http://localhost:3000/api/posts", {
   headers: {
     Authorization: `Bearer ${localStorage.getItem("token")}`,
   },
@@ -169,7 +190,7 @@ const response = await fetch("http://localhost:3001/api/posts", {
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:3001/api",
+  baseURL: "http://localhost:3000/api",
 });
 
 api.interceptors.request.use((config) => {
@@ -205,12 +226,37 @@ const { data } = await api.post("/posts", formData);
 
 ## 🧪 테스트 도구
 
-### Postman 또는 Thunder Client
+### 1. Swagger UI (가장 쉬운 방법) ⭐
+
+1. **브라우저에서 열기**
+
+   ```
+   http://localhost:3000/api-docs
+   ```
+
+2. **로그인하여 토큰 받기**
+
+   - `POST /api/users/login` 섹션 열기
+   - "Try it out" 클릭
+   - username과 password 입력
+   - "Execute" 클릭
+   - 응답에서 `token` 복사
+
+3. **인증 설정**
+
+   - 페이지 상단의 🔒 "Authorize" 버튼 클릭
+   - `Bearer {token}` 입력 (Bearer 다음에 공백 후 토큰)
+   - "Authorize" 클릭
+
+4. **API 테스트**
+   - 이제 모든 API를 브라우저에서 직접 테스트 가능!
+
+### 2. Postman 또는 Thunder Client
 
 1. **로그인 요청**
 
    ```
-   POST http://localhost:3001/api/users/login
+   POST http://localhost:3000/api/users/login
    Body (JSON):
    {
      "username": "testuser",
@@ -226,7 +272,7 @@ const { data } = await api.post("/posts", formData);
 
 3. **인증이 필요한 요청**
    ```
-   GET http://localhost:3001/api/posts
+   GET http://localhost:3000/api/posts
    Headers:
    Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
    ```
@@ -289,7 +335,7 @@ const { data } = await api.post("/posts", formData);
 ### 1. CORS 에러
 
 ```
-Access to fetch at 'http://localhost:3001/api/posts' from origin 'http://localhost:3000' has been blocked by CORS
+Access to fetch at 'http://localhost:3000/api/posts' from origin 'http://localhost:3000' has been blocked by CORS
 ```
 
 **해결:** `.env`에 `CLIENT_URL=http://localhost:3000` 설정 확인

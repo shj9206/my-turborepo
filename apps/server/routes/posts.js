@@ -34,7 +34,37 @@ cloudinary.config({
    게시물 CRUD API
    =================== */
 
-// GET /api/posts - 피드 조회 (본인 + 친구들의 게시물)
+/**
+ * @swagger
+ * /posts:
+ *   get:
+ *     summary: 피드 조회
+ *     description: 본인과 친구들의 게시물을 조회합니다
+ *     tags: [Posts]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: 게시물 목록 조회 성공
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 posts:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Post'
+ *       401:
+ *         description: 인증 필요
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 router.get("/", verifyToken, async (req, res) => {
   try {
     const user = await User.findById(req.user._id)
@@ -95,7 +125,42 @@ router.get("/", verifyToken, async (req, res) => {
   }
 });
 
-// GET /api/posts/:id - 특정 게시물 조회
+/**
+ * @swagger
+ * /posts/{id}:
+ *   get:
+ *     summary: 게시물 상세 조회
+ *     description: 특정 게시물의 상세 정보를 조회합니다
+ *     tags: [Posts]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: 게시물 ID
+ *     responses:
+ *       200:
+ *         description: 게시물 조회 성공
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 post:
+ *                   $ref: '#/components/schemas/Post'
+ *       404:
+ *         description: 게시물을 찾을 수 없음
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 router.get("/:id", verifyToken, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id)
@@ -128,7 +193,54 @@ router.get("/:id", verifyToken, async (req, res) => {
   }
 });
 
-// POST /api/posts - 게시물 생성
+/**
+ * @swagger
+ * /posts:
+ *   post:
+ *     summary: 게시물 작성
+ *     description: 새로운 게시물을 작성합니다
+ *     tags: [Posts]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - content
+ *             properties:
+ *               content:
+ *                 type: string
+ *                 description: 게시물 내용
+ *               image:
+ *                 type: string
+ *                 format: binary
+ *                 description: 게시물 이미지 (선택)
+ *     responses:
+ *       201:
+ *         description: 게시물 작성 성공
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: 게시물이 작성되었습니다
+ *                 post:
+ *                   $ref: '#/components/schemas/Post'
+ *       400:
+ *         description: 잘못된 요청
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 router.post("/", verifyToken, upload.single("image"), async (req, res) => {
   try {
     const { content } = req.body;
@@ -183,7 +295,42 @@ router.post("/", verifyToken, upload.single("image"), async (req, res) => {
   }
 });
 
-// DELETE /api/posts/:id - 게시물 삭제
+/**
+ * @swagger
+ * /posts/{id}:
+ *   delete:
+ *     summary: 게시물 삭제
+ *     description: 본인의 게시물을 삭제합니다
+ *     tags: [Posts]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: 게시물 ID
+ *     responses:
+ *       200:
+ *         description: 게시물 삭제 성공
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Success'
+ *       403:
+ *         description: 권한 없음
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       404:
+ *         description: 게시물을 찾을 수 없음
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 router.delete("/:id", verifyToken, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -228,7 +375,46 @@ router.delete("/:id", verifyToken, async (req, res) => {
    좋아요 API
    =================== */
 
-// POST /api/posts/:id/like - 게시물 좋아요
+/**
+ * @swagger
+ * /posts/{id}/like:
+ *   post:
+ *     summary: 게시물 좋아요
+ *     description: 게시물에 좋아요를 누릅니다
+ *     tags: [Likes]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: 게시물 ID
+ *     responses:
+ *       200:
+ *         description: 좋아요 성공
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: 좋아요를 눌렀습니다
+ *                 likes:
+ *                   type: number
+ *                   example: 11
+ *       400:
+ *         description: 이미 좋아요한 게시물
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 router.post("/:id/like", verifyToken, async (req, res) => {
   try {
     const user = await User.findById(req.user._id);
@@ -271,7 +457,40 @@ router.post("/:id/like", verifyToken, async (req, res) => {
   }
 });
 
-// DELETE /api/posts/:id/like - 게시물 좋아요 취소
+/**
+ * @swagger
+ * /posts/{id}/like:
+ *   delete:
+ *     summary: 게시물 좋아요 취소
+ *     description: 게시물의 좋아요를 취소합니다
+ *     tags: [Likes]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: 게시물 ID
+ *     responses:
+ *       200:
+ *         description: 좋아요 취소 성공
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: 좋아요를 취소했습니다
+ *                 likes:
+ *                   type: number
+ *                   example: 10
+ */
 router.delete("/:id/like", verifyToken, async (req, res) => {
   try {
     const user = await User.findById(req.user._id);
@@ -318,7 +537,57 @@ router.delete("/:id/like", verifyToken, async (req, res) => {
    댓글 API
    =================== */
 
-// POST /api/posts/:id/comments - 댓글 작성
+/**
+ * @swagger
+ * /posts/{id}/comments:
+ *   post:
+ *     summary: 댓글 작성
+ *     description: 게시물에 댓글을 작성합니다
+ *     tags: [Comments]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: 게시물 ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - content
+ *             properties:
+ *               content:
+ *                 type: string
+ *                 description: 댓글 내용
+ *     responses:
+ *       201:
+ *         description: 댓글 작성 성공
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: 댓글이 작성되었습니다
+ *                 comment:
+ *                   $ref: '#/components/schemas/Comment'
+ *       400:
+ *         description: 잘못된 요청
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 router.post("/:id/comments", verifyToken, async (req, res) => {
   try {
     const { content } = req.body;
