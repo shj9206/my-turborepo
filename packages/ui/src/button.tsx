@@ -1,20 +1,37 @@
-"use client";
+import React from 'react';
 
-import { ReactNode } from "react";
+import './button.css';
 
-interface ButtonProps {
-  children: ReactNode;
-  className?: string;
-  appName: string;
+export interface ButtonProps {
+  /** Is this the principal call to action on the page? */
+  primary?: boolean;
+  /** What background color to use */
+  backgroundColor?: string;
+  /** How large should the button be? */
+  size?: 'small' | 'medium' | 'large';
+  /** Button contents */
+  label: string;
+  /** Optional click handler */
+  onClick?: () => void;
 }
 
-export const Button = ({ children, className, appName }: ButtonProps) => {
+/** Primary UI component for user interaction */
+export const Button = ({
+  primary = false,
+  size = 'medium',
+  backgroundColor,
+  label,
+  ...props
+}: ButtonProps) => {
+  const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary';
   return (
     <button
-      className={className}
-      onClick={() => alert(`Hello from your ${appName} app!`)}
+      type="button"
+      className={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
+      style={{ backgroundColor }}
+      {...props}
     >
-      {children}
+      {label}
     </button>
   );
 };

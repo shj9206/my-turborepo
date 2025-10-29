@@ -1,4 +1,7 @@
-import type { Config } from "tailwindcss";
+// tailwind.config.mjs
+// 이 파일은 Storybook용 설정입니다.
+// 새로운 설정은 packages/ui/tailwind.config.ts를 참조하세요.
+
 import {
   red,
   orange,
@@ -12,10 +15,14 @@ import {
   pink,
   purple,
   gray,
-} from "./src/colors/data.ts";
+} from "./packages/ui/src/colors/data.ts";
 
-// UI 패키지의 Tailwind 프리셋
-const uiPreset: Partial<Config> = {
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./packages/ui/src/**/*.{js,ts,jsx,tsx,mdx}",
+    "./apps/storybook/.storybook/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
     extend: {
       colors: {
@@ -32,7 +39,6 @@ const uiPreset: Partial<Config> = {
         purple,
         gray,
       },
-      // 추가 커스터마이징
       fontFamily: {
         sans: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
         mono: ["var(--font-geist-mono)", "monospace"],
@@ -54,14 +60,5 @@ const uiPreset: Partial<Config> = {
       },
     },
   },
-};
-
-// UI 패키지 자체 설정
-const config: Config = {
-  content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
-  presets: [uiPreset as Config],
   plugins: [],
 };
-
-export default config;
-export { uiPreset };
