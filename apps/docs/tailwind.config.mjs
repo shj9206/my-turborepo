@@ -11,7 +11,7 @@ export default {
   presets: [uiPreset],
   theme: {
     extend: {
-      // web 앱 전용 추가 커스터마이징
+      // docs 앱 전용 추가 커스터마이징
     },
   },
   plugins: [],

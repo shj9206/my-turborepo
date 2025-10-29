@@ -1,0 +1,43 @@
+import { Meta, ColorPalette, ColorItem } from "@storybook/addon-docs/blocks";
+import * as colorPalette from "./index";
+
+<Meta title="Design System/Colors" />
+
+# Color Palette
+
+프로젝트에서 사용하는 전체 컬러 팔레트입니다. 각 색상은 10부터 100까지의 shade를 가지고 있습니다.
+
+<ColorPalette>
+  <ColorItem title="Red" subtitle="빨강 계열" colors={colorPalette.red} />
+  <ColorItem title="Orange" subtitle="주황 계열" colors={colorPalette.orange} />
+  <ColorItem title="Yellow" subtitle="노랑 계열" colors={colorPalette.yellow} />
+  <ColorItem title="Lime" subtitle="라임 계열" colors={colorPalette.lime} />
+  <ColorItem title="Green" subtitle="초록 계열" colors={colorPalette.green} />
+  <ColorItem title="Teal" subtitle="청록 계열" colors={colorPalette.teal} />
+  <ColorItem
+    title="Turquoise"
+    subtitle="터콰이즈 계열"
+    colors={colorPalette.turquo}
+  />
+  <ColorItem title="Aqua" subtitle="아쿠아 계열" colors={colorPalette.aqua} />
+  <ColorItem title="Blue" subtitle="파랑 계열" colors={colorPalette.blue} />
+  <ColorItem title="Pink" subtitle="분홍 계열" colors={colorPalette.pink} />
+  <ColorItem title="Purple" subtitle="보라 계열" colors={colorPalette.purple} />
+  <ColorItem title="Gray" subtitle="회색 계열" colors={colorPalette.gray} />
+</ColorPalette>
+
+## 사용 방법
+
+Tailwind CSS에서 다음과 같이 사용할 수 있습니다:
+
+```tsx
+// 배경색
+<div className="bg-red-50">...</div>
+<div className="bg-blue-60">...</div>
+
+// 텍스트 색
+<p className="text-purple-70">...</p>
+
+// 테두리 색
+<button className="border-green-40">...</button>
+```
