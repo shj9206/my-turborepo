@@ -35,11 +35,59 @@ const iconComponents = {
       <rect width="24" height="24" rx="4" />
     </svg>
   ),
-  star: (props: React.SVGProps<SVGSVGElement>) => (
-    <svg {...props} viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 2L15.09 8.26L22 9L17 14L18.18 21L12 17.77L5.82 21L7 14L2 9L8.91 8.26L12 2Z" />
-    </svg>
-  ),
+  star: (props: React.SVGProps<SVGSVGElement>) => {
+    const pathData =
+      "M19.3537 6.72533L13.358 5.85397L10.6778 0.420341C10.6046 0.271572 10.4842 0.15114 10.3354 0.0779356C9.96232 -0.106255 9.50893 0.0472372 9.32237 0.420341L6.64216 5.85397L0.64652 6.72533C0.48122 6.74895 0.33009 6.82687 0.21438 6.94494C0.0744935 7.08872 -0.00259026 7.28216 6.64643e-05 7.48274C0.00272319 7.68332 0.0849031 7.87464 0.228548 8.01467L4.56648 12.244L3.54162 18.216C3.51759 18.3549 3.53296 18.4978 3.586 18.6284C3.63903 18.7591 3.72761 18.8722 3.84168 18.9551C3.95576 19.0379 4.09076 19.0871 4.23139 19.0972C4.37202 19.1072 4.51264 19.0776 4.63732 19.0118L10.0001 16.1923L15.3629 19.0118C15.5093 19.0897 15.6793 19.1157 15.8423 19.0874C16.2531 19.0165 16.5294 18.6269 16.4586 18.216L15.4337 12.244L19.7717 8.01467C19.8897 7.89896 19.9677 7.74783 19.9913 7.58253C20.055 7.16928 19.7669 6.78673 19.3537 6.72533Z";
+
+    const className = props.className || "";
+    let strokeWidth = 2;
+    if (className.includes("stroke-0")) {
+      strokeWidth = 0;
+    } else {
+      const match = className.match(/stroke-\[(\d+(?:\.\d+)?)px?\]/);
+      if (match && match[1]) {
+        strokeWidth = parseFloat(match[1]);
+      }
+    }
+
+    // stroke가 0이 아니면 두 개의 path 사용 (fill용과 stroke용)
+    const hasStroke = strokeWidth > 0;
+
+    // stroke 색상 결정 (stroke-blue-600 같은 클래스 확인)
+    const strokeStyle: React.CSSProperties = {};
+    if (className.includes("stroke-blue-600")) {
+      strokeStyle.stroke = "rgb(37, 99, 235)"; // blue-600
+    } else if (className.includes("stroke-blue-500")) {
+      strokeStyle.stroke = "rgb(59, 130, 246)"; // blue-500
+    }
+
+    return (
+      <svg
+        {...props}
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+        className={props.className}
+      >
+        {/* Fill layer */}
+        <path d={pathData} fill="currentColor" stroke="none" />
+        {/* Stroke layer - 별 모양을 따라 테두리 */}
+        {hasStroke && (
+          <path
+            d={pathData}
+            fill="none"
+            stroke={strokeStyle.stroke || "currentColor"}
+            strokeWidth={strokeWidth}
+            strokeLinejoin="round"
+            strokeLinecap="round"
+            style={strokeStyle}
+          />
+        )}
+      </svg>
+    );
+  },
   heart: (props: React.SVGProps<SVGSVGElement>) => (
     <svg {...props} viewBox="0 0 24 24" fill="none">
       <path
