@@ -1,6 +1,7 @@
 import Image, { type ImageProps } from "next/image";
-import { Button } from "@repo/ui/button";
+import { Button } from "@repo/ui/Button";
 import styles from "./page.module.css";
+import QueryDemo from "./_components/QueryDemo";
 
 type Props = Omit<ImageProps, "src"> & {
   srcLight: string;
@@ -66,6 +67,7 @@ export default function Home() {
         <Button appName="web" className={styles.secondary}>
           Open alert
         </Button>
+        <QueryDemo />
       </main>
       <footer className={styles.footer}>
         <a

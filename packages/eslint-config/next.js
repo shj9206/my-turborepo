@@ -5,6 +5,7 @@ import pluginReactHooks from "eslint-plugin-react-hooks";
 import pluginReact from "eslint-plugin-react";
 import globals from "globals";
 import pluginNext from "@next/eslint-plugin-next";
+import pluginTanstackQuery from "@tanstack/eslint-plugin-query";
 import { config as baseConfig } from "./base.js";
 
 /**
@@ -44,6 +45,14 @@ export const nextJsConfig = [
       ...pluginReactHooks.configs.recommended.rules,
       // React scope no longer necessary with new JSX transform.
       "react/react-in-jsx-scope": "off",
+    },
+  },
+  {
+    plugins: {
+      "@tanstack/query": pluginTanstackQuery,
+    },
+    rules: {
+      ...pluginTanstackQuery.configs["flat/recommended"].rules,
     },
   },
 ];
