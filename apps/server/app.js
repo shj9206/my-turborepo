@@ -22,13 +22,25 @@ const aladinFavoritRoutes = require("./routes/aladin/favorit");
 const app = express();
 
 /* Middleware */
-// CORS 설정 - React 앱에서 API 호출 가능하도록
-app.use(
-  cors({
-    origin: process.env.CLIENT_URL || "http://localhost:3000",
-    credentials: true,
-  })
-);
+// CORS 설정 - 다중 오리진 허용 및 프리플라이트 처리
+const allowedOrigins = (process.env.CLIENT_URLS || process.env.CLIENT_URL || "http://localhost:3000,http://localhost:8080,http://localhost:6006")
+  .split(",")
+  .map((s) => s.trim())
+  .filter(Boolean);
+
+const corsOptions = {
+  origin(origin, callback) {
+    if (!origin) return callback(null, true); // 서버-서버 요청 또는 같은 오리진
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    return callback(new Error(`Not allowed by CORS: ${origin}`));
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 
 // JSON 파싱
 app.use(express.json());
