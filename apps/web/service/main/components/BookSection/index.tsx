@@ -1,10 +1,29 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
 import { LIST_API_KEY, LIST_API_URL, LIST_TITLE } from "../../constants";
-import { IBookSectionProps } from "./interface";
+import { IBookSectionProps, ISectionConfig } from "./interface";
 import { BookCardSection } from "./components/BookCardSection";
 import { BookCoverSection } from "./components/BookCoverSection";
 import { useMemo } from "react";
+
+const SECTION_CONFIG: Record<LIST_API_KEY, ISectionConfig> = {
+  [LIST_API_KEY.NEW_ALL]: {
+    component: "BookCardSection",
+    showTitle: false,
+  },
+  [LIST_API_KEY.NEW_SPECIAL]: {
+    component: "BookCoverSection",
+    showTitle: true,
+  },
+  [LIST_API_KEY.BESTSELLER]: {
+    component: "BookCoverSection",
+    showTitle: true,
+  },
+  [LIST_API_KEY.BLOG_BEST]: {
+    component: "BookCoverSection",
+    showTitle: true,
+  },
+};
 
 export const BookSection = ({ queryKey }: IBookSectionProps) => {
   const { data, isLoading, error } = useQuery({
@@ -16,28 +35,30 @@ export const BookSection = ({ queryKey }: IBookSectionProps) => {
     },
   });
 
+  const config = SECTION_CONFIG[queryKey];
+
   const Component = useMemo(() => {
     if (!data?.item) return null;
-    switch (queryKey) {
-      case LIST_API_KEY.NEW_ALL:
-        return <BookCoverSection items={data.item} />;
-      case LIST_API_KEY.NEW_SPECIAL:
-        return <BookCardSection items={data.item} />;
-      case LIST_API_KEY.BESTSELLER:
-        return <BookCoverSection items={data.item} />;
-      case LIST_API_KEY.BLOG_BEST:
-        return <BookCardSection items={data.item} />;
+    const items = data.item;
+
+    switch (config.component) {
+      case "BookCardSection":
+        return <BookCardSection items={items} />;
+      case "BookCoverSection":
+        return <BookCoverSection items={items} />;
     }
-  }, [queryKey, data?.item]);
+  }, [config.component, data?.item]);
 
   if (isLoading) return <p>Loading…</p>;
   if (error) return <p>Something went wrong</p>;
 
   return (
     <section className="w-full mx-auto flex flex-col gap-4 p-6">
-      <h1 className="text-lg font-semibold justify-start">
-        {LIST_TITLE[queryKey]}
-      </h1>
+      {config.showTitle && (
+        <h1 className="text-lg font-semibold justify-start">
+          {LIST_TITLE[queryKey]}
+        </h1>
+      )}
       {Component}
     </section>
   );

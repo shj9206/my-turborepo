@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "exports": {
-    "./*": "./src/*.tsx",
+    ".": "./src/index.ts",
+    "./*": "./src/*",
     "./tailwind.config": "./tailwind.config.ts",
     "./styles": "./src/index.css",
     "./colors": "./src/stories/colors/data.ts"

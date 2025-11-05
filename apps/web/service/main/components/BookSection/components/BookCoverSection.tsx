@@ -1,4 +1,4 @@
-import { BookCover } from "@repo/ui/components/bookCover";
+import { BookCover } from "@repo/ui";
 
 export const BookCoverSection = ({items}: {items: any[]}) => {
   return (

@@ -1,4 +1,4 @@
 export interface IBookCoverProps {
   imageUrl: string;
-  size?: "sm" | "md";
+  size?: "xs" | "sm" | "md";
 }

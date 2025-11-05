@@ -3,6 +3,7 @@ import { IBookCoverProps } from "./interface";
 
 export const BookCover = ({ imageUrl, size = "md" }: IBookCoverProps) => {
   const sizeClass = {
+    xs: "w-[100px] h-[140px]",
     sm: "w-[128px] h-[178px]",
     md: "w-[248px] h-[364px]",
   };
@@ -21,4 +22,4 @@ export const BookCover = ({ imageUrl, size = "md" }: IBookCoverProps) => {
       />
     </div>
   );
-}
+};

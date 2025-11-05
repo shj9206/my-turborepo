@@ -4,3 +4,10 @@ export interface IBookSectionProps {
     queryKey: LIST_API_KEY;
   }
   
+
+  export type TSectionComponent = "BookCardSection" | "BookCoverSection";
+
+export interface ISectionConfig {
+    component: TSectionComponent;
+    showTitle: boolean;
+  }
