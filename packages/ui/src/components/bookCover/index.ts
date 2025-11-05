@@ -1,1 +1,1 @@
-export { default as BookCover } from "./Component";
+export * from "./Component";

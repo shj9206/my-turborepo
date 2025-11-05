@@ -1,1 +1,2 @@
-export { default as BookSection } from "./BookSection";
+export * from "./BookSection";
+export * from "./bookCard";
