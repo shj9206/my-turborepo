@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import BookCover from "./Component";
+import { BookCover } from "./Component";
 
 const meta: Meta<typeof BookCover> = {
   title: "Components/BookCover",
@@ -31,5 +31,3 @@ export const Small: Story = {
     size: "sm",
   },
 };
-
-
