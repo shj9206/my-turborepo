@@ -132,4 +132,4 @@ const Icon = ({ name, className, size = "md" }: IIconProps) => {
   );
 };
 
-export default Icon;
+export { Icon };

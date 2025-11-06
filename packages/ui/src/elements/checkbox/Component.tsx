@@ -1,6 +1,6 @@
 import { cn } from "@repo/util";
 import { ICheckboxProps } from "./interface";
-import Icon from "../icon/Component";
+import { Icon } from "../icon";
 import { useEffect, useState } from "react";
 
 const Checkbox = ({

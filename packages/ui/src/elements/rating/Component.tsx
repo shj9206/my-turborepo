@@ -1,5 +1,5 @@
 import { cn } from "@repo/util";
-import Icon from "../icon/Component";
+import { Icon } from "../icon";
 import { IRatingProps } from "./interface";
 
 const Rating = ({ count = 5, className }: IRatingProps) => {
