@@ -1,6 +1,6 @@
 export const Footer = () => {
   return (
-    <footer className="w-full flex flex-col p-6 bg-gray-100  gap-4 justify-center items-center">
+    <footer className="w-full flex flex-col p-8 pb-12 bg-gray-10  gap-5 justify-center items-center">
       <span className="text-sm text-black font-bold">준스코프</span>
       <div className="flex flex-col gap-1 items-center">
         <span className="text-xs text-gray-500">대표자 : 송화준</span>
@@ -12,10 +12,10 @@ export const Footer = () => {
         <span className="text-xs text-gray-500">
           주소 : 서울특별시 강서구 등촌동 660-5
         </span>
-        <span className="text-xs text-gray-500">
-          Copyright 2025. 준스코프. All rights reserved.
-        </span>
       </div>
+      <span className="text-xs text-black">
+        Copyright 2025. 준스코프. All rights reserved.
+      </span>
     </footer>
   );
 };
