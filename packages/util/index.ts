@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+export * from "./user-agent";
 
 /**
  * 클래스명을 결합하는 유틸리티 함수 (Tailwind CSS 클래스 병합 지원)
