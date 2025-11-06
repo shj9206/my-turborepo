@@ -2,17 +2,21 @@
 import { useQuery } from "@tanstack/react-query";
 import { LIST_API_KEY, LIST_API_URL, LIST_TITLE } from "../../constants";
 import { IBookSectionProps, ISectionConfig } from "./interface";
-import { BookCardSection, BookCoverSection, BookTextSection } from "./components";
+import {
+  BookCardSection,
+  BookCoverSection,
+  BookTextSection,
+} from "./components";
 import { useMemo } from "react";
 
 const SECTION_CONFIG: Record<LIST_API_KEY, ISectionConfig> = {
   [LIST_API_KEY.NEW_ALL]: {
-    component: "BookCardSection",
-    showTitle: false,
-  },
-  [LIST_API_KEY.NEW_SPECIAL]: {
     component: "BookTextSection",
     showTitle: true,
+  },
+  [LIST_API_KEY.NEW_SPECIAL]: {
+    component: "BookCardSection",
+    showTitle: false,
   },
   [LIST_API_KEY.BESTSELLER]: {
     component: "BookCoverSection",
