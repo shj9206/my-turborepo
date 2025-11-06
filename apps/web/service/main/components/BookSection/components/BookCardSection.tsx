@@ -3,6 +3,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { BookCard } from "../../bookCard";
 import "swiper/css";
 
+/**
+ * 카드 섹션 컴포넌트
+ * @param items - 카드 데이터
+ * @description 카드 섹션 컴포넌트는 카드 데이터를 스와이퍼로 감싸서 슬라이드 효과를 줍니다.
+ */
+
 export const BookCardSection = ({ items }: { items: any[] }) => {
   return (
     <section className="flex flex-row -mx-6">
