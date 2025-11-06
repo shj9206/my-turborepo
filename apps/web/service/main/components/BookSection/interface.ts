@@ -7,7 +7,8 @@ export interface IBookSectionProps {
 export type TSectionComponent =
   | "BookCardSection"
   | "BookCoverSection"
-  | "BookTextSection";
+  | "BookTextSection"
+  | "ResponsiveCardSection";
 
 export interface ISectionConfig {
   component: TSectionComponent;

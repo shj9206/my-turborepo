@@ -6,6 +6,7 @@ import {
   BookCardSection,
   BookCoverSection,
   BookTextSection,
+  ResponsiveCardSection,
 } from "./components";
 import { useMemo } from "react";
 
@@ -23,7 +24,7 @@ const SECTION_CONFIG: Record<LIST_API_KEY, ISectionConfig> = {
     showTitle: true,
   },
   [LIST_API_KEY.BLOG_BEST]: {
-    component: "BookCoverSection",
+    component: "ResponsiveCardSection",
     showTitle: true,
   },
 };
@@ -51,6 +52,8 @@ export const BookSection = ({ queryKey }: IBookSectionProps) => {
         return <BookCoverSection items={items} />;
       case "BookTextSection":
         return <BookTextSection items={items} />;
+      case "ResponsiveCardSection":
+        return <ResponsiveCardSection items={items} />;
     }
   }, [config.component, data?.item]);
 
