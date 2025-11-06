@@ -63,9 +63,9 @@ export const BookSection = ({ queryKey }: IBookSectionProps) => {
   return (
     <section className="w-full  flex flex-col gap-4 p-6">
       {config.showTitle && (
-        <h1 className="text-lg font-semibold justify-start">
+        <span className="text-2xl font-semibold justify-start">
           {LIST_TITLE[queryKey]}
-        </h1>
+        </span>
       )}
       {Component}
     </section>
