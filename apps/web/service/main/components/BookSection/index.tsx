@@ -53,13 +53,13 @@ export const BookSection = ({ queryKey }: IBookSectionProps) => {
   if (error) return <p>Something went wrong</p>;
 
   return (
-    <section className="w-full mx-auto flex flex-col gap-4 p-6">
+    <section className="w-full  flex flex-col gap-4 p-6">
       {config.showTitle && (
         <h1 className="text-lg font-semibold justify-start">
           {LIST_TITLE[queryKey]}
         </h1>
       )}
-      {Component}
+        {Component}
     </section>
   );
 };

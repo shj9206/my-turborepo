@@ -11,7 +11,7 @@ export const BookCardMok = ({
   return (
     <section
       className={cn(
-        "w-full max-w-[348px] h-[196px] flex flex-row gap-4 p-4 rounded-lg flex-shrink-0",
+        "w-[320px] h-[196px] flex flex-row gap-4 p-4 rounded-lg flex-shrink-0",
         bgColor
       )}
     >
