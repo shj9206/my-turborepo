@@ -2,8 +2,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { LIST_API_KEY, LIST_API_URL, LIST_TITLE } from "../../constants";
 import { IBookSectionProps, ISectionConfig } from "./interface";
-import { BookCardSection } from "./components/BookCardSection";
-import { BookCoverSection } from "./components/BookCoverSection";
+import { BookCardSection, BookCoverSection, BookTextSection } from "./components";
 import { useMemo } from "react";
 
 const SECTION_CONFIG: Record<LIST_API_KEY, ISectionConfig> = {
@@ -12,7 +11,7 @@ const SECTION_CONFIG: Record<LIST_API_KEY, ISectionConfig> = {
     showTitle: false,
   },
   [LIST_API_KEY.NEW_SPECIAL]: {
-    component: "BookCoverSection",
+    component: "BookTextSection",
     showTitle: true,
   },
   [LIST_API_KEY.BESTSELLER]: {
@@ -46,6 +45,8 @@ export const BookSection = ({ queryKey }: IBookSectionProps) => {
         return <BookCardSection items={items} />;
       case "BookCoverSection":
         return <BookCoverSection items={items} />;
+      case "BookTextSection":
+        return <BookTextSection items={items} />;
     }
   }, [config.component, data?.item]);
 
@@ -59,7 +60,7 @@ export const BookSection = ({ queryKey }: IBookSectionProps) => {
           {LIST_TITLE[queryKey]}
         </h1>
       )}
-        {Component}
+      {Component}
     </section>
   );
 };
