@@ -12,7 +12,7 @@ export const SearchBar = ({
       <input
         type="text"
         placeholder={placeholder}
-        className="w-full h-full rounded-xl p-4 outline-none"
+        className="w-full h-full rounded-xl p-4 outline-none bg-transparent"
         onChange={(e) => onChange(e.target.value)}
         value={value}
         onKeyDown={(e) => {

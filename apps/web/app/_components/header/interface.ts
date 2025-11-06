@@ -1,3 +1,5 @@
 export interface IHeaderProps {
-  title: string;
+  searchValue: string;
+  setSearchValue: (value: string) => void;
+  handleSearch: () => void;
 }

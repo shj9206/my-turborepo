@@ -5,7 +5,7 @@ import { Footer } from "@repo/ui";
 export default function BaseLayoutMock({ children }: IBaseLayoutProps) {
   return (
     <section className="w-full mx-auto flex flex-col">
-      <Header title="Home" />
+      <Header />
       {children}
       <Footer />
     </section>
