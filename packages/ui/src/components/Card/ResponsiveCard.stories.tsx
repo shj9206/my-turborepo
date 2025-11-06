@@ -6,6 +6,9 @@ const meta: Meta<typeof ResponsiveCard> = {
   component: ResponsiveCard,
   parameters: {
     layout: "centered",
+    viewport: {
+      defaultViewport: "responsive",
+    },
   },
   tags: ["autodocs"],
 };
