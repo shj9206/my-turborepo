@@ -1,7 +1,7 @@
 "use client";
 import React, { createContext, useContext, useMemo } from "react";
 
-import { isMobile, isTablet } from "@repo/util";
+import { isMobile, isTablet } from "@repo/ui";
 
 const enum ViewType {
   MO = "mobile",
