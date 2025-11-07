@@ -6,7 +6,12 @@
   "module": "./index.ts",
   "types": "./index.ts",
   "exports": {
-    ".": "./index.ts"
+    ".": {
+      "types": "./index.ts",
+      "import": "./index.ts",
+      "require": "./index.ts",
+      "default": "./index.ts"
+    }
   },
   "scripts": {},
   "devDependencies": {
