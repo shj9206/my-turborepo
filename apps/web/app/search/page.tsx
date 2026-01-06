@@ -9,6 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { ISearchResponse } from "@/service/search";
 import { SearchList } from "@/service/search/components/SearchList";
+import { ISearchListProps } from "@/service/search/components/SearchList/interface";
 
 export default function Search() {
   const searchParams = useSearchParams();
@@ -30,7 +31,13 @@ export default function Search() {
     },
     enabled: !!query, // query가 있을 때만 실행 조회
   });
-  return (
-    <SearchList data={data} isLoading={isLoading} error={error} query={query} />
-  );
+
+  const searchListProps: ISearchListProps = {
+    data,
+    isLoading,
+    error,
+    query,
+  };
+
+  return <SearchList {...searchListProps} />;
 }
