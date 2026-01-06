@@ -46,7 +46,7 @@ export const SearchBar = ({
   }, [isTargetOpen]);
 
   return (
-    <section className="w-full flex flex-row gap-2 items-center justify-between h-11 rounded-2xl shadow-md border border-gray-200 px-4 py-3">
+    <section className="w-full flex flex-row gap-2 items-center justify-between h-14 rounded-2xl shadow-md border border-gray-200 px-4 py-3">
       <div className="flex flex-row gap-2 items-center w-full relative">
         {targetList && (
           <div
