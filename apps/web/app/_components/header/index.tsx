@@ -1,11 +1,13 @@
 "use client";
 import { useState } from "react";
 import HeaderMok from "./HeaderMok";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
+  const router = useRouter();
   const [searchValue, setSearchValue] = useState("");
   const handleSearch = () => {
-    console.log(searchValue);
+    router.push(`/search?Query=${searchValue}`);
   };
   const Component = HeaderMok;
   return (
