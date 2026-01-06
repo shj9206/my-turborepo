@@ -2,6 +2,7 @@ import { IHeaderProps } from "./interface";
 import { SearchBar } from "@repo/ui";
 
 const HeaderMo = ({
+  targetList,
   searchValue,
   setSearchValue,
   handleSearch,
@@ -9,6 +10,7 @@ const HeaderMo = ({
   return (
     <section className="w-full mx-auto flex flex-row items-center px-4 py-7 justify-between">
       <SearchBar
+        targetList={targetList}
         onChange={setSearchValue}
         onSearch={handleSearch}
         value={searchValue}

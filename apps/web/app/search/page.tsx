@@ -14,10 +14,12 @@ import { ISearchListProps } from "@/service/search/components/SearchList/interfa
 export default function Search() {
   const searchParams = useSearchParams();
   const query = searchParams.get("Query");
+  const searchTarget = searchParams.get("SearchTarget");
 
   const params = {
     QueryType: "Keyword" as const,
     Query: query || "",
+    SearchTarget: searchTarget || "",
   };
 
   const { data, isLoading, error } = useQuery<ISearchResponse>({
