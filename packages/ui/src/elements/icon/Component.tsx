@@ -136,6 +136,17 @@ const iconComponents = {
       />
     </svg>
   ),
+  chevronDown: (props: React.SVGProps<SVGSVGElement>) => (
+    <svg {...props} viewBox="0 0 24 24" fill="none">
+      <path
+        d="M6 9L12 15L18 9"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
 } as const;
 
 const sizeClasses = {
@@ -145,7 +156,9 @@ const sizeClasses = {
 } as const;
 
 const Icon = ({ name, className, size = "md" }: IIconProps) => {
-  const IconComponent = iconComponents[name];
+  const IconComponent = iconComponents[name] as React.ComponentType<
+    React.SVGProps<SVGSVGElement>
+  >;
 
   return (
     <IconComponent
