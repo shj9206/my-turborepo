@@ -1,6 +1,8 @@
-export const Footer = () => {
+export const FooterMok = () => {
   return (
-    <footer className="w-full flex flex-col p-8 pb-12 bg-gray-10  gap-5 justify-center items-center">
+    <footer
+      className="flex flex-col p-8 pb-12 bg-gray-10 gap-5 justify-center items-center w-full"
+    >
       <span className="text-sm text-black font-bold">준스코프</span>
       <div className="flex flex-col gap-1 items-center">
         <span className="text-xs text-gray-500">대표자 : 송화준</span>
