@@ -1,4 +1,4 @@
-export const FooterInk = () => {
+export const FooterPc = () => {
   return (
     <footer className="flex flex-col border-t border-gray-200 p-8 pb-12  gap-5 justify-center items-center w-[100vw] ml-[calc(50%-50vw)]">
       <span className="text-sm text-black font-bold">준스코프</span>

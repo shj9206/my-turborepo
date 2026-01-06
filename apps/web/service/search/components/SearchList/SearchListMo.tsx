@@ -2,7 +2,7 @@
 
 import { ISearchListProps } from "./interface";
 
-export const SearchListMok = ({
+export const SearchListMo = ({
   data,
   isLoading,
   error,

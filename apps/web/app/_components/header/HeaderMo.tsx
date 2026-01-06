@@ -1,7 +1,7 @@
 import { IHeaderProps } from "./interface";
 import { SearchBar } from "@repo/ui";
 
-const HeaderMok = ({
+const HeaderMo = ({
   searchValue,
   setSearchValue,
   handleSearch,
@@ -17,4 +17,4 @@ const HeaderMok = ({
   );
 };
 
-export default HeaderMok;
+export default HeaderMo;

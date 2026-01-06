@@ -2,7 +2,7 @@ import { BookCover } from "@repo/ui";
 import { cn } from "@repo/util";
 import { IBookCardProps } from "./interface";
 
-export const BookCardMok = ({
+export const BookCardMo = ({
   imageUrl,
   title,
   author,
@@ -25,3 +25,4 @@ export const BookCardMok = ({
     </section>
   );
 };
+

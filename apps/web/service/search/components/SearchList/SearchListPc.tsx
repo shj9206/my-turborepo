@@ -2,7 +2,7 @@
 
 import { ISearchListProps } from "./interface";
 
-export const SearchListInk = ({
+export const SearchListPc = ({
   data,
   isLoading,
   error,
@@ -28,7 +28,9 @@ export const SearchListInk = ({
     return (
       <div className="w-full max-w-7xl mx-auto px-6 py-8">
         <p className="text-center text-gray-500">
-          {query ? `"${query}"에 대한 검색 결과가 없습니다.` : "검색어를 입력해주세요."}
+          {query
+            ? `"${query}"에 대한 검색 결과가 없습니다.`
+            : "검색어를 입력해주세요."}
         </p>
       </div>
     );
@@ -58,7 +60,9 @@ export const SearchListInk = ({
               />
             )}
             <div className="flex flex-col gap-1">
-              <h3 className="text-sm font-semibold line-clamp-2">{item.title}</h3>
+              <h3 className="text-sm font-semibold line-clamp-2">
+                {item.title}
+              </h3>
               {item.author && (
                 <p className="text-xs text-gray-500">{item.author}</p>
               )}

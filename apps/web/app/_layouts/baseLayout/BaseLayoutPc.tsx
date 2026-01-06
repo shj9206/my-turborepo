@@ -2,12 +2,12 @@ import Header from "@/app/_components/header";
 import { IBaseLayoutProps } from "./interface";
 import { Footer } from "@repo/ui";
 
-export const BaseLayoutMok = ({ children }: IBaseLayoutProps) => {
+export const BaseLayoutPc = ({ children }: IBaseLayoutProps) => {
   return (
-    <section className="w-full mx-auto flex flex-col">
+    <section className="w-[calc(100%-600px)] mx-auto flex flex-col">
       <Header />
       {children}
       <Footer />
     </section>
   );
-}
+};
