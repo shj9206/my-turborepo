@@ -83,6 +83,7 @@ router.get("/", optionalAuth, async (req, res) => {
       SearchTarget = "All",
       output = "JS",
       Version = "20131101",
+      Cover = "Big",
     } = req.query;
 
     // 파라미터 유효성 검증
