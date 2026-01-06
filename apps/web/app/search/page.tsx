@@ -7,9 +7,7 @@ import {
 import { buildQueryString } from "@repo/util";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
-import { SearchContainer } from "./SearchContainer";
 import { ISearchResponse } from "@/service/search";
-import { useView } from "../_provider/viewProvider";
 import { SearchList } from "@/service/search/components/SearchList";
 
 export default function Search() {
@@ -17,7 +15,7 @@ export default function Search() {
   const query = searchParams.get("Query");
 
   const params = {
-    QueryType: "Keyword",
+    QueryType: "Keyword" as const,
     Query: query || "",
   };
 
