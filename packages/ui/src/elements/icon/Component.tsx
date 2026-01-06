@@ -103,6 +103,7 @@ const iconComponents = {
       height="16"
       viewBox="0 0 16 16"
       fill="none"
+      className={cn(props.className)}
     >
       <mask
         id="mask0_136_9995"
