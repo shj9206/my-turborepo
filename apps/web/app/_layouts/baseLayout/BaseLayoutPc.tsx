@@ -1,4 +1,4 @@
-import Header from "@/app/_components/header";
+import Header from "@/app/_components/Header";
 import { IBaseLayoutProps } from "./interface";
 import { Footer } from "@repo/ui";
 
