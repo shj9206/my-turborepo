@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useMemo } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 import { isMobile, isTablet } from "@repo/ui";
 
@@ -23,13 +23,29 @@ export const ViewContext = createContext<{
 
 // Provider 구현
 export function ViewProvider({ children }: { children: React.ReactNode }) {
-  // userAgent를 통한 viewType 판별
-  const viewType = useMemo<ViewType>(
-    () => (isMobile() ? ViewType.MO : ViewType.PC),
-    []
-  );
-  const IS_MOBILE = isMobile();
-  const IS_TABLET = isTablet();
+  const [IS_MOBILE, setIsMobile] = useState(false);
+  const [IS_TABLET, setIsTablet] = useState(false);
+
+  useEffect(() => {
+    // 초기 값 설정
+    const updateView = () => {
+      setIsMobile(isMobile());
+      setIsTablet(isTablet());
+    };
+
+    // 초기 실행
+    updateView();
+
+    // 리사이즈 이벤트 리스너 추가
+    window.addEventListener("resize", updateView);
+
+    // cleanup
+    return () => {
+      window.removeEventListener("resize", updateView);
+    };
+  }, []);
+
+  const viewType = IS_MOBILE ? ViewType.MO : ViewType.PC;
 
   return (
     <ViewContext.Provider value={{ viewType, IS_MOBILE, IS_TABLET }}>

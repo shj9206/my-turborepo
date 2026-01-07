@@ -7,6 +7,7 @@ import { IBaseLayoutProps } from "./interface";
 
 export default function BaseLayout({ children }: IBaseLayoutProps) {
   const { IS_MOBILE } = useView();
+  console.log(IS_MOBILE);
   const Component = IS_MOBILE ? BaseLayoutMo : BaseLayoutPc;
   return <Component>{children}</Component>;
 }
