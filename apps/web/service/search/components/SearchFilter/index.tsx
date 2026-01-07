@@ -44,7 +44,7 @@ export const SearchFilter = () => {
   return (
     <section className="w-full max-w-[200px] mx-auto flex flex-col gap-4">
       <span className="text-lg font-bold">필터</span>
-      <div className="flex flex-col gap-4 border-t border-gray-200 pt-4 px-4 justify-start items-start ">
+      <div className="flex flex-col gap-4  pt-4 px-4 justify-start items-start ">
         {checkedList.map((item) => (
           <Radio
             key={item.value}
