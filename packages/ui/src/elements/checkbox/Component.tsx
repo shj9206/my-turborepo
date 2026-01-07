@@ -9,6 +9,7 @@ const Checkbox = ({
   size = "medium",
   checked,
   icon = "check",
+  label = "",
 }: ICheckboxProps) => {
   const sizeClasses = {
     small: "w-4 h-4 rounded-[4px]",
@@ -70,6 +71,7 @@ const Checkbox = ({
           </div>
         )}
       </div>
+      {label && <span className="text-sm text-gray-500">{label}</span>}
     </label>
   );
 };
