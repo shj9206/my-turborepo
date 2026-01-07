@@ -1,11 +1,10 @@
 import React from "react";
-import { useState } from "react";
-import { IListTabProps } from "./interface";
+import { IListTabComponentProps } from "./interface";
 import { cn } from "@repo/util";
 
-export const ListTabPc = (props: IListTabProps) => {
-  const { tabList } = props;
-  const [activeTab, setActiveTab] = useState(tabList?.[0]?.value || "");
+export const ListTabPc = (props: IListTabComponentProps) => {
+  const { tabList, handleTabClick, activeTab } = props;
+
   return (
     <section className="w-full mx-auto px-6 py-8">
       <div className="flex flex-row w-full justify-center">
@@ -15,10 +14,7 @@ export const ListTabPc = (props: IListTabProps) => {
               "w-full border border-gray-300 rounded-t-[4px]  px-4 py-2 border-b-black",
               activeTab === tab.value && "border-black border-b-0 font-bold "
             )}
-            onClick={() => {
-              setActiveTab(tab.value);
-              tab.onClick();
-            }}
+            onClick={() => handleTabClick(tab.value)}
             key={tab.value}
           >
             {tab.name}

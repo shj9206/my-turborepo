@@ -1,10 +1,9 @@
-import React, { useState } from "react";
-import { IListTabProps } from "./interface";
+import React from "react";
+import { IListTabComponentProps } from "./interface";
 import { cn } from "@repo/util";
 
-export const ListTabMo = (props: IListTabProps) => {
-  const { tabList } = props;
-  const [activeTab, setActiveTab] = useState(tabList?.[0]?.value || "");
+export const ListTabMo = (props: IListTabComponentProps) => {
+  const { tabList, handleTabClick, activeTab } = props;
   return (
     <section className="w-full mx-auto px-6 py-2">
       <div className="flex flex-row justify-center w-full">
@@ -12,10 +11,7 @@ export const ListTabMo = (props: IListTabProps) => {
           <button
             className={cn("w-full ", activeTab === tab.value && "font-bold ")}
             key={tab.value}
-            onClick={() => {
-              setActiveTab(tab.value);
-              tab.onClick();
-            }}
+            onClick={() => handleTabClick(tab.value)}
           >
             {tab.name}
           </button>
@@ -23,5 +19,4 @@ export const ListTabMo = (props: IListTabProps) => {
       </div>
     </section>
   );
-  return <div>ListTabMobile</div>;
 };
