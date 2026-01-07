@@ -127,7 +127,7 @@ export const SearchListMo = () => {
       </div>
       <div className="flex flex-col gap-4">
         {allItems.map((item, index) => (
-          <ListItem key={item.isbn || index} item={item} index={index} />
+          <ListItem key={`${item.isbn}-${index}`} item={item} index={index} />
         ))}
       </div>
       {/* Infinite scroll 트리거 요소 */}
