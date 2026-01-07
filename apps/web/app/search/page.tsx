@@ -6,16 +6,18 @@ import {
 } from "@/service/search/constants/searchApiKey";
 import { buildQueryString } from "@repo/util";
 import { useQuery } from "@tanstack/react-query";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { ISearchResponse } from "@/service/search";
 import { SearchList } from "@/service/search/components/SearchList";
 import { ISearchListProps } from "@/service/search/components/SearchList/interface";
+import { ListTab } from "@/app/_components";
+import { SEARCH_TAB_LIST } from "@/service/search/constants/tabList";
 
 export default function Search() {
   const searchParams = useSearchParams();
   const query = searchParams.get("Query");
   const searchTarget = searchParams.get("SearchTarget");
-
+  const router = useRouter();
   const params = {
     QueryType: "Keyword" as const,
     Query: query || "",
@@ -41,5 +43,14 @@ export default function Search() {
     query,
   };
 
-  return <SearchList {...searchListProps} />;
+  const listTabProps = {
+    tabList: SEARCH_TAB_LIST(query || ""),
+  };
+
+  return (
+    <section className="w-full mx-auto flex flex-col gap-4">
+      <ListTab {...listTabProps} />
+      <SearchList {...searchListProps} />
+    </section>
+  );
 }
