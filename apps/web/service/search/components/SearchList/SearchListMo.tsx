@@ -11,6 +11,11 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { ISearchResponse } from "@/service/search";
 
+/**
+ * 모바일 검색 리스트
+ * @returns 모바일 검색 리스트 컴포넌트
+ * @description 모바일 검색 리스트 컴포넌트, Infinite Scroll 포함
+ */
 export const SearchListMo = () => {
   const searchParams = useSearchParams();
   const query = searchParams.get("Query");

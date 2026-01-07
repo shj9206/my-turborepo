@@ -13,6 +13,11 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ISearchResponse } from "@/service/search";
 import { PageNation } from "@repo/ui";
 
+/**
+ * PC 검색 리스트
+ * @returns PC 검색 리스트 컴포넌트
+ * @description PC 검색 리스트 컴포넌트, 페이지 네비게이션 포함
+ */
 export const SearchListPc = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
