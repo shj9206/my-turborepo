@@ -3,6 +3,13 @@ import { Icon } from "../icon";
 import { ISelectProps } from "./interface";
 import { cn } from "@repo/util";
 
+/**
+ * 선택 컴포넌트
+ * @param options - 옵션 리스트
+ * @param value - 선택된 값
+ * @param onChange - 값 변경 핸들러
+ * @description 선택 컴포넌트
+ */
 export const Select = ({ options, value, onChange }: ISelectProps) => {
   const [selected, setSelected] = useState<string>(value);
   const [isOpen, setIsOpen] = useState<boolean>(false);

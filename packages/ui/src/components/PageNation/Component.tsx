@@ -2,6 +2,13 @@ import { IPageNationProps } from "./interface";
 import { useMemo } from "react";
 import { Icon } from "../../elements/icon";
 
+/**
+ * 페이지 네비게이션
+ * @param totalPages - 총 페이지 수
+ * @param currentPage - 현재 페이지
+ * @param onPageChange - 페이지 변경 핸들러
+ * @description 페이지 네비게이션 컴포넌트
+ */
 export const PageNation = ({
   totalPages,
   currentPage,
