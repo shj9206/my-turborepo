@@ -25,10 +25,18 @@ const config = {
     config.resolve.alias = {
       ...config.resolve.alias,
       "@": resolve(__dirname, "../../../apps/web"),
+      "next/navigation": resolve(__dirname, "./mocks/next-navigation.ts"),
     };
     // JSX transform 설정
     config.esbuild = config.esbuild || {};
     config.esbuild.jsx = "automatic";
+
+    // PostCSS 설정 추가
+    config.css = config.css || {};
+    config.css.postcss = {
+      plugins: [require("@tailwindcss/postcss"), require("autoprefixer")],
+    };
+
     return config;
   },
 };
