@@ -92,14 +92,6 @@ export const SearchListMo = () => {
   const allItems = infiniteData?.pages.flatMap((page) => page.item || []) || [];
   const totalResults = infiniteData?.pages[0]?.totalResults || allItems.length;
 
-  if (error) {
-    return (
-      <div className="w-full px-4 py-6">
-        <p className="text-center text-red-500">에러: {error.message}</p>
-      </div>
-    );
-  }
-
   return (
     <div className="w-full px-4 py-6">
       <div className="mb-4">

@@ -62,28 +62,7 @@ export const SearchListPc = () => {
   };
 
   // 데이터 존재 여부 및 길이 체크
-  const hasItems = !!(data?.item && data.item.length > 0);
   const isEmpty = !data || !data.item || data.item.length === 0;
-
-  if (error) {
-    return (
-      <div className="w-full max-w-7xl mx-auto px-6 py-8">
-        <p className="text-center text-red-500">에러: {error.message}</p>
-      </div>
-    );
-  }
-
-  if (isEmpty && !isLoading) {
-    return (
-      <div className="w-full max-w-7xl mx-auto px-6 py-8">
-        <p className="text-center text-gray-500">
-          {query
-            ? `"${query}"에 대한 검색 결과가 없습니다.`
-            : "검색어를 입력해주세요."}
-        </p>
-      </div>
-    );
-  }
 
   return (
     <>
