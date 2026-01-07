@@ -13,8 +13,10 @@ import { ISearchListProps } from "@/service/search/components/SearchList/interfa
 import { ListTab } from "@/app/_components";
 import { SEARCH_TAB_LIST } from "@/service/search/constants/tabList";
 import { PageNation } from "@repo/ui";
+import { useView } from "../_provider/viewProvider";
 
 export default function Search() {
+  const { IS_MOBILE } = useView();
   const searchParams = useSearchParams();
   const router = useRouter();
   const path = usePathname();
@@ -69,11 +71,13 @@ export default function Search() {
     <section className="w-full mx-auto flex flex-col gap-4 mb-10">
       <ListTab {...listTabProps} />
       <SearchList {...searchListProps} />
-      <PageNation
-        totalPages={totalPages}
-        currentPage={start as unknown as number}
-        onPageChange={(page: number) => handlePageChange(page)}
-      />
+      {!IS_MOBILE && (
+        <PageNation
+          totalPages={totalPages}
+          currentPage={start as unknown as number}
+          onPageChange={(page: number) => handlePageChange(page)}
+        />
+      )}
     </section>
   );
 }
