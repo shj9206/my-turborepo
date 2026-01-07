@@ -1,8 +1,8 @@
 import { ISkeletonBoundaryProps } from "./interface";
 
 export const SkeletonBoundaryMo = (props: ISkeletonBoundaryProps) => {
-  const { isFirstLoading } = props;
-  if (isFirstLoading) {
+  const { isLoading } = props;
+  if (isLoading) {
     return (
       <section className="w-full flex flex-col gap-4 px-4 py-6">
         {Array.from({ length: 5 }).map((_, index) => (

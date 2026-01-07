@@ -1,4 +1,4 @@
 export interface ISkeletonBoundaryProps {
   children: React.ReactNode;
-  isFirstLoading: boolean;
+  isLoading: boolean;
 }

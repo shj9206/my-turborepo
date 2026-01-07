@@ -109,8 +109,7 @@ export const SearchListMo = () => {
         <p className="text-xs text-gray-500">총 {totalResults}개의 결과</p>
       </div>
       <ListBoundary
-        isFirstLoading={isLoading && allItems.length === 0}
-        isLoading={isLoading && allItems.length > 0}
+        isLoading={isLoading && allItems.length === 0}
         isError={!!error}
         isEmpty={allItems.length === 0}
       >

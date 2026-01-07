@@ -104,8 +104,7 @@ export const SearchListPc = () => {
             {/* <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 w-full mt-4"> */}
             {/* 검색 결과 리스트 */}
             <ListBoundary
-              isFirstLoading={isLoading && isEmpty}
-              isLoading={isLoading && hasItems}
+              isLoading={isLoading && isEmpty}
               isError={!!error}
               isEmpty={isEmpty}
             >
