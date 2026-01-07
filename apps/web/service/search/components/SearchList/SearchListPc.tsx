@@ -1,5 +1,6 @@
 "use client";
 
+import { ListHeader } from "@/app/_components/ListHeader";
 import { SearchFilter } from "../SearchFilter";
 import { ISearchListProps } from "./interface";
 
@@ -49,32 +50,35 @@ export const SearchListPc = ({
       </div>
       <div className="flex flex-row w-full gap-4">
         <SearchFilter />
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 w-full">
-          {data.item.map((item, index) => (
-            <div
-              key={item.isbn || index}
-              className="flex flex-col gap-2 cursor-pointer hover:opacity-80 transition-opacity"
-            >
-              {item.cover && (
-                <img
-                  src={item.cover}
-                  alt={item.title}
-                  className="w-full aspect-[3/4] object-cover rounded-lg shadow-md"
-                />
-              )}
-              <div className="flex flex-col gap-1">
-                <h3 className="text-sm font-semibold line-clamp-2">
-                  {item.title}
-                </h3>
-                {item.author && (
-                  <p className="text-xs text-gray-500">{item.author}</p>
+        <div className="w-full flex flex-col">
+          <ListHeader />
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 w-full mt-4">
+            {data.item.map((item, index) => (
+              <div
+                key={item.isbn || index}
+                className="flex flex-col gap-2 cursor-pointer hover:opacity-80 transition-opacity"
+              >
+                {item.cover && (
+                  <img
+                    src={item.cover}
+                    alt={item.title}
+                    className="w-full aspect-[3/4] object-cover rounded-lg shadow-md"
+                  />
                 )}
-                {item.publisher && (
-                  <p className="text-xs text-gray-400">{item.publisher}</p>
-                )}
+                <div className="flex flex-col gap-1">
+                  <h3 className="text-sm font-semibold line-clamp-2">
+                    {item.title}
+                  </h3>
+                  {item.author && (
+                    <p className="text-xs text-gray-500">{item.author}</p>
+                  )}
+                  {item.publisher && (
+                    <p className="text-xs text-gray-400">{item.publisher}</p>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>
