@@ -3,4 +3,5 @@ export interface IRadioProps {
   onChange?: (checked: boolean) => void;
   size?: "small" | "medium" | "large";
   checked?: boolean;
+  label?: string;
 }
