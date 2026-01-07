@@ -1,5 +1,6 @@
 "use client";
 
+import { ListItem } from "@/app/_components/ListItem";
 import { ISearchListProps } from "./interface";
 
 export const SearchListMo = ({
@@ -48,34 +49,7 @@ export const SearchListMo = ({
       </div>
       <div className="flex flex-col gap-4">
         {data.item.map((item, index) => (
-          <div
-            key={item.isbn || index}
-            className="flex gap-3 cursor-pointer hover:opacity-80 transition-opacity"
-          >
-            {item.cover && (
-              <img
-                src={item.cover}
-                alt={item.title}
-                className="w-20 h-28 object-cover rounded shadow-sm flex-shrink-0"
-              />
-            )}
-            <div className="flex flex-col gap-1 flex-1 min-w-0">
-              <h3 className="text-sm font-semibold line-clamp-2">
-                {item.title}
-              </h3>
-              {item.author && (
-                <p className="text-xs text-gray-500">{item.author}</p>
-              )}
-              {item.publisher && (
-                <p className="text-xs text-gray-400">{item.publisher}</p>
-              )}
-              {item.description && (
-                <p className="text-xs text-gray-400 line-clamp-2 mt-1">
-                  {item.description}
-                </p>
-              )}
-            </div>
-          </div>
+          <ListItem key={item.isbn || index} item={item} index={index} />
         ))}
       </div>
     </div>

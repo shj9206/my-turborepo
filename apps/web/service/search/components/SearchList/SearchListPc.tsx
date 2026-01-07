@@ -3,6 +3,7 @@
 import { ListHeader } from "@/app/_components/ListHeader";
 import { SearchFilter } from "../SearchFilter";
 import { ISearchListProps } from "./interface";
+import { ListItem } from "@/app/_components/ListItem";
 
 export const SearchListPc = ({
   data,
@@ -52,31 +53,11 @@ export const SearchListPc = ({
         <SearchFilter />
         <div className="w-full flex flex-col">
           <ListHeader />
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 w-full mt-4">
+          {/* TODO: 검색 결과 리스트 grid, list 타입 구성 */}
+          {/* <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 w-full mt-4"> */}
+          <div className="flex flex-col gap-4 py-5">
             {data.item.map((item, index) => (
-              <div
-                key={item.isbn || index}
-                className="flex flex-col gap-2 cursor-pointer hover:opacity-80 transition-opacity"
-              >
-                {item.cover && (
-                  <img
-                    src={item.cover}
-                    alt={item.title}
-                    className="w-full aspect-[3/4] object-cover rounded-lg shadow-md"
-                  />
-                )}
-                <div className="flex flex-col gap-1">
-                  <h3 className="text-sm font-semibold line-clamp-2">
-                    {item.title}
-                  </h3>
-                  {item.author && (
-                    <p className="text-xs text-gray-500">{item.author}</p>
-                  )}
-                  {item.publisher && (
-                    <p className="text-xs text-gray-400">{item.publisher}</p>
-                  )}
-                </div>
-              </div>
+              <ListItem key={item.isbn || index} item={item} index={index} />
             ))}
           </div>
         </div>
