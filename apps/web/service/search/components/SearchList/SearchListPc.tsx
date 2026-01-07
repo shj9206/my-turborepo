@@ -12,6 +12,7 @@ import { useQuery } from "@tanstack/react-query";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ISearchResponse } from "@/service/search";
 import { PageNation } from "@repo/ui";
+import { ListBoundary } from "@/app/_components/ListBoundary";
 
 /**
  * PC 검색 리스트
@@ -60,13 +61,9 @@ export const SearchListPc = () => {
     );
   };
 
-  if (isLoading) {
-    return (
-      <div className="w-full max-w-7xl mx-auto px-6 py-8">
-        <p className="text-center text-gray-500">검색 중...</p>
-      </div>
-    );
-  }
+  // 데이터 존재 여부 및 길이 체크
+  const hasItems = !!(data?.item && data.item.length > 0);
+  const isEmpty = !data || !data.item || data.item.length === 0;
 
   if (error) {
     return (
@@ -76,7 +73,7 @@ export const SearchListPc = () => {
     );
   }
 
-  if (!data || !data.item || data.item.length === 0) {
+  if (isEmpty && !isLoading) {
     return (
       <div className="w-full max-w-7xl mx-auto px-6 py-8">
         <p className="text-center text-gray-500">
@@ -96,7 +93,7 @@ export const SearchListPc = () => {
             {query ? `"${query}" 검색 결과` : "검색 결과"}
           </h1>
           <p className="text-sm text-gray-500">
-            총 {data.totalResults || data.item.length}개의 결과
+            총 {data?.totalResults || data?.item?.length || 0}개의 결과
           </p>
         </div>
         <div className="flex flex-row w-full gap-4">
@@ -105,19 +102,35 @@ export const SearchListPc = () => {
             <ListHeader />
             {/* TODO: 검색 결과 리스트 grid, list 타입 구성 */}
             {/* <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 w-full mt-4"> */}
-            <div className="flex flex-col gap-4 py-5">
-              {data.item.map((item, index) => (
-                <ListItem key={item.isbn || index} item={item} index={index} />
-              ))}
-            </div>
+            {/* 검색 결과 리스트 */}
+            <ListBoundary
+              isFirstLoading={isLoading && isEmpty}
+              isLoading={isLoading && hasItems}
+              isError={!!error}
+              isEmpty={isEmpty}
+            >
+              {data?.item && (
+                <div className="flex flex-col gap-4 py-5">
+                  {data.item.map((item, index) => (
+                    <ListItem
+                      key={item.isbn || index}
+                      item={item}
+                      index={index}
+                    />
+                  ))}
+                </div>
+              )}
+            </ListBoundary>
           </div>
         </div>
       </div>
-      <PageNation
-        totalPages={totalPages}
-        currentPage={(start as unknown as number) || 1}
-        onPageChange={(page: number) => handlePageChange(page)}
-      />
+      {!isLoading && !error && (
+        <PageNation
+          totalPages={totalPages}
+          currentPage={(start as unknown as number) || 1}
+          onPageChange={(page: number) => handlePageChange(page)}
+        />
+      )}
     </>
   );
 };

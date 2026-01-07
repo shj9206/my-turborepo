@@ -10,7 +10,7 @@ import { buildQueryString } from "@repo/util";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { ISearchResponse } from "@/service/search";
-
+import { ListBoundary } from "@/app/_components/ListBoundary";
 /**
  * 모바일 검색 리스트
  * @returns 모바일 검색 리스트 컴포넌트
@@ -89,35 +89,13 @@ export const SearchListMo = () => {
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   // Infinite query 데이터에서 모든 아이템을 평탄화
-  const allItems =
-    infiniteData?.pages.flatMap((page) => page.item || []) || [];
-  const totalResults =
-    infiniteData?.pages[0]?.totalResults || allItems.length;
-
-  if (isLoading && allItems.length === 0) {
-    return (
-      <div className="w-full px-4 py-6">
-        <p className="text-center text-gray-500">검색 중...</p>
-      </div>
-    );
-  }
+  const allItems = infiniteData?.pages.flatMap((page) => page.item || []) || [];
+  const totalResults = infiniteData?.pages[0]?.totalResults || allItems.length;
 
   if (error) {
     return (
       <div className="w-full px-4 py-6">
         <p className="text-center text-red-500">에러: {error.message}</p>
-      </div>
-    );
-  }
-
-  if (allItems.length === 0) {
-    return (
-      <div className="w-full px-4 py-6">
-        <p className="text-center text-gray-500">
-          {query
-            ? `"${query}"에 대한 검색 결과가 없습니다.`
-            : "검색어를 입력해주세요."}
-        </p>
       </div>
     );
   }
@@ -130,11 +108,19 @@ export const SearchListMo = () => {
         </h1>
         <p className="text-xs text-gray-500">총 {totalResults}개의 결과</p>
       </div>
-      <div className="flex flex-col gap-4">
-        {allItems.map((item, index) => (
-          <ListItem key={`${item.isbn}-${index}`} item={item} index={index} />
-        ))}
-      </div>
+      <ListBoundary
+        isFirstLoading={isLoading && allItems.length === 0}
+        isLoading={isLoading && allItems.length > 0}
+        isError={!!error}
+        isEmpty={allItems.length === 0}
+      >
+        <div className="flex flex-col gap-4">
+          {allItems.map((item, index) => (
+            <ListItem key={`${item.isbn}-${index}`} item={item} index={index} />
+          ))}
+        </div>
+      </ListBoundary>
+
       {/* Infinite scroll 트리거 요소 */}
       <div ref={observerTarget} className="h-4 w-full" />
       {isFetchingNextPage && (
