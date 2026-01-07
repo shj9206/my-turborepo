@@ -45,6 +45,7 @@ export default function Search() {
 
   const listTabProps = {
     tabList: SEARCH_TAB_LIST(query || ""),
+    tagetString: "SearchTarget",
   };
 
   return (
