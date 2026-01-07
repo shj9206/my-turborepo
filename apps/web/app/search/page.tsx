@@ -18,10 +18,14 @@ export default function Search() {
   const query = searchParams.get("Query");
   const searchTarget = searchParams.get("SearchTarget");
   const queryType = searchParams.get("QueryType");
+  const maxResults = searchParams.get("MaxResults");
+  const sort = searchParams.get("Sort");
   const params = {
     QueryType: queryType || ("Keyword" as const),
     Query: query || "",
     SearchTarget: searchTarget || "",
+    MaxResults: maxResults || "20",
+    Sort: sort || "Accuracy",
   };
 
   const { data, isLoading, error } = useQuery<ISearchResponse>({
