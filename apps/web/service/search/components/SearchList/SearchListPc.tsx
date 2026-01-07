@@ -47,9 +47,9 @@ export const SearchListPc = ({
           총 {data.totalResults || data.item.length}개의 결과
         </p>
       </div>
-      <div className="flex flex-row gap-4">
+      <div className="flex flex-row w-full gap-4">
         <SearchFilter />
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 w-full">
           {data.item.map((item, index) => (
             <div
               key={item.isbn || index}
