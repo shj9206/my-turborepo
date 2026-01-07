@@ -6,7 +6,7 @@ import {
 } from "@/service/search/constants/searchApiKey";
 import { buildQueryString } from "@repo/util";
 import { useQuery } from "@tanstack/react-query";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { ISearchResponse } from "@/service/search";
 import { SearchList } from "@/service/search/components/SearchList";
 import { ISearchListProps } from "@/service/search/components/SearchList/interface";
@@ -17,9 +17,9 @@ export default function Search() {
   const searchParams = useSearchParams();
   const query = searchParams.get("Query");
   const searchTarget = searchParams.get("SearchTarget");
-  const router = useRouter();
+  const queryType = searchParams.get("QueryType");
   const params = {
-    QueryType: "Keyword" as const,
+    QueryType: queryType || ("Keyword" as const),
     Query: query || "",
     SearchTarget: searchTarget || "",
   };
