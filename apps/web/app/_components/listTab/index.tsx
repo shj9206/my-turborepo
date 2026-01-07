@@ -10,7 +10,7 @@ export const ListTab = (props: IListTabProps) => {
   const { IS_MOBILE } = useView();
   const { tabList, tagetString } = props;
   const searchParams = useSearchParams();
-  const target = searchParams.get(tagetString);
+  const target = searchParams?.get(tagetString);
   const [activeTab, setActiveTab] = useState(target || "");
 
   useEffect(() => {

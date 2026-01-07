@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
 import { ListTab } from "./index";
+import { ViewProvider } from "@/app/_provider/viewProvider";
+import React from "react";
 
 const meta: Meta<typeof ListTab> = {
   title: "Components/ListTab",
@@ -9,6 +11,13 @@ const meta: Meta<typeof ListTab> = {
     layout: "centered",
   },
   tags: ["autodocs"],
+  decorators: [
+    (Story) => (
+      <ViewProvider>
+        <Story />
+      </ViewProvider>
+    ),
+  ],
   argTypes: {
     tabList: {
       control: "object",

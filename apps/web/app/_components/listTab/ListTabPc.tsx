@@ -1,5 +1,6 @@
 import React from "react";
 import { IListTabComponentProps } from "./interface";
+
 import { cn } from "@repo/util";
 
 export const ListTabPc = (props: IListTabComponentProps) => {
