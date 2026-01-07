@@ -1,3 +1,4 @@
+import React from "react";
 import { ListTabMo } from "./ListTabMo";
 import { ListTabPc } from "./ListTabPc";
 import { useView } from "@/app/_provider/viewProvider";
