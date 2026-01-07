@@ -6,7 +6,11 @@ export interface IIconProps {
     | "heart"
     | "search"
     | "close"
-    | "chevronDown";
+    | "chevronDown"
+    | "chevronLeft"
+    | "chevronRight"
+    | "chevronDoubleLeft"
+    | "chevronDoubleRight";
   className?: string;
   size?: "sm" | "md" | "lg";
 }
