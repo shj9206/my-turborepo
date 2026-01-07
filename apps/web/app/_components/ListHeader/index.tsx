@@ -3,6 +3,12 @@ import { ListHeaderMo } from "./ListHeaderMo";
 import { ListHeaderPc } from "./ListHeaderPc";
 import { useSearchParams } from "next/navigation";
 import { useRouter, usePathname } from "next/navigation";
+
+/**
+ * 리스트 헤더
+ * @returns 리스트 헤더 컴포넌트
+ * @description 리스트 헤더 컴포넌트, PC, MO 구분
+ */
 export const ListHeader = () => {
   const { IS_MOBILE } = useView();
   const searchParams = useSearchParams();
