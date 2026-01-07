@@ -1,6 +1,14 @@
 import { IListItemProps } from "./interface";
 import { formatDate, formatPrice } from "@repo/ui";
 
+/**
+ * PC 리스트 아이템
+ * @param item - 리스트 아이템 데이터
+ * @param index - 리스트 아이템 인덱스
+ * @returns 리스트 아이템 PC 컴포넌트
+ * @description  PC 리스트 아이템 컴포넌트
+ */
+
 export const ListItemPC = ({ item, index }: IListItemProps) => {
   const discountRate =
     item.priceStandard && item.priceSales
