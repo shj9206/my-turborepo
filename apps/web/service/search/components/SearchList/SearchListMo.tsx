@@ -11,6 +11,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { ISearchResponse } from "@/service/search";
 import { ListBoundary } from "@/app/_components/ListBoundary";
+import { Spiner } from "@repo/ui";
 /**
  * 모바일 검색 리스트
  * @returns 모바일 검색 리스트 컴포넌트
@@ -114,11 +115,9 @@ export const SearchListMo = () => {
 
       {/* Infinite scroll 트리거 요소 */}
       <div ref={observerTarget} className="h-4 w-full" />
-      {isFetchingNextPage && (
-        <div className="w-full py-4">
-          <p className="text-center text-gray-500">더 불러오는 중...</p>
-        </div>
-      )}
+
+      {/* 딤 처리된 로딩 오버레이 */}
+      {isFetchingNextPage && <Spiner />}
     </div>
   );
 };
