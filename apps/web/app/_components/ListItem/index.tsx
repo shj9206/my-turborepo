@@ -16,6 +16,10 @@ export const ListItem = ({ item, index }: IListItemProps) => {
   const router = useRouter();
 
   const handleOnClickItem = () => {
+    if (!item.isbn13) {
+      console.warn("isbn13 is missing for item:", item);
+      return;
+    }
     router.push(`/product/${item.isbn13}`);
   };
   const Component = IS_MOBILE ? ListItemMo : ListItemPC;
