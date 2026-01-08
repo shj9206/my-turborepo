@@ -20,19 +20,11 @@ interface BannerItem {
 const items: BannerItem[] = [
   {
     id: 1,
-    image: "/images/bookBanner.jpg",
+    image: "/images/instruction.png",
   },
   {
     id: 2,
-    image: "/images/bookBanner2.jpg",
-  },
-  {
-    id: 3,
-    image: "/images/banner.jpg",
-  },
-  {
-    id: 4,
-    image: "/images/banner2.jpg",
+    image: "/images/skillStack.png",
   },
 ];
 
