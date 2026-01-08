@@ -21,22 +21,13 @@ export const ListItemMo = ({
         )
       : null;
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      handleOnClick();
-    }
-  };
-
   return (
     <article
       key={item.isbn || index}
-      role="button"
       tabIndex={0}
       aria-label={`${item.title}${item.author ? ` - ${item.author}` : ""} 상세 정보 보기`}
       className="group flex gap-2 sm:gap-3 md:gap-4 p-2 sm:p-3 md:p-4 rounded-lg bg-white border-b border-gray-200 cursor-pointer hover:border-gray-300 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-300 active:scale-[0.98] md:hover:scale-[1.01]"
       onClick={handleOnClick}
-      onKeyDown={handleKeyDown}
     >
       {item.cover && (
         <div className="flex-shrink-0">
@@ -94,7 +85,7 @@ export const ListItemMo = ({
 
         {/* 설명 */}
         {item.description && (
-          <p className="hidden md:block text-[11px] lg:text-xs text-gray-500 line-clamp-2 leading-relaxed">
+          <p className="hidden md:block text-[11px] lg:text-xs text-gray-600 line-clamp-2 leading-relaxed">
             {item.description}
           </p>
         )}
@@ -112,7 +103,7 @@ export const ListItemMo = ({
             )}
             {item.priceStandard && item.priceStandard !== item.priceSales && (
               <span
-                className="text-[9px] sm:text-[10px] md:text-xs text-gray-500 line-through"
+                className="text-[9px] sm:text-[10px] md:text-xs text-gray-600 line-through"
                 aria-label={`정가 ${formatPrice(item.priceStandard)}원`}
               >
                 {formatPrice(item.priceStandard)}원
