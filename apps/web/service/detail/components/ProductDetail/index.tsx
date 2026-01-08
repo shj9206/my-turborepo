@@ -20,15 +20,15 @@ export const ProductDetail = ({
 }) => {
   const { IS_MOBILE } = useView();
 
-  // initialData가 있으면 사용, 없으면 에러 (서버에서 데이터를 가져와야 함)
+  // 서버 컴포넌트에서 이미 검증했지만, 방어적으로 처리
   if (!initialData) {
-    throw new Error("상품 데이터가 제공되지 않았습니다.");
+    return null;
   }
 
   const item = initialData?.item?.[0];
 
   if (!item) {
-    throw new Error("404 Not Found");
+    return null;
   }
 
   const Component = IS_MOBILE ? ProductDetailMo : ProductDetailPc;

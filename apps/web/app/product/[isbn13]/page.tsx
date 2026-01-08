@@ -1,6 +1,7 @@
 import { ProductDetail, ProductDetailSkeleton } from "@/service/detail";
 import { Suspense } from "react";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { IProductDetailResponse } from "@/service/detail/interface";
 import { PRODUCT_API_URL } from "@/service/detail/constants/productApiKey";
 
@@ -87,8 +88,8 @@ async function ProductDetailWrapper({ isbn13 }: { isbn13: string }) {
   const data = await getProductData(isbn13);
   const item = data?.item?.[0];
 
-  if (!item) {
-    throw new Error("상품을 찾을 수 없습니다.");
+  if (!item || !data) {
+    notFound();
   }
 
   return <ProductDetail initialData={data} />;
