@@ -8,22 +8,21 @@ const aladinProductUrl = "http://www.aladin.co.kr/ttb/api/ItemLookUp.aspx";
 const aladinProductUrlWithKey = `${aladinProductUrl}?ttbkey=${process.env.ALADIN_TTB_KEY}`;
 
 /**
-     * @swagger
-     * /search:
+ * @swagger
+ * /product/{ItemId}:
  *   get:
- *     summary: 알라딘 도서 상품 검색
- *     description: 알라딘 API를 통해 도서 상품 검색을 조회합니다
+ *     summary: 알라딘 도서 상품 상세 조회
+ *     description: 알라딘 API를 통해 도서 상품 상세 정보를 조회합니다
  *     tags: [Books]
  *     parameters:
- *       - in: query
+ *       - in: path
  *         name: ItemId
+ *         required: true
  *         schema:
  *           type: string
- *           default: ""
- *         description: |
- *           도서 상품 ID
+ *         description: 도서 상품 ID (ISBN13 또는 ISBN)
  *       - in: query
- *         name: ItemIdType
+ *         name: itemIdType
  *         schema:
  *           type: string
  *           default: "ISBN13"
@@ -31,7 +30,30 @@ const aladinProductUrlWithKey = `${aladinProductUrl}?ttbkey=${process.env.ALADIN
  *           도서 상품 ID 타입
  *           - ISBN13: ISBN13
  *           - ISBN: ISBN
-
+ *       - in: query
+ *         name: Cover
+ *         schema:
+ *           type: string
+ *           default: "Big"
+ *         description: 커버 이미지 크기
+ *       - in: query
+ *         name: Version
+ *         schema:
+ *           type: string
+ *           default: "20131101"
+ *         description: API 버전
+ *       - in: query
+ *         name: output
+ *         schema:
+ *           type: string
+ *           default: "JS"
+ *         description: 출력 형식
+ *       - in: query
+ *         name: OptResult
+ *         schema:
+ *           type: string
+ *           default: "ratingInfo,eventList,authors,reviewList,fulldescription,Toc,Story,mdrecommend,phraseList"
+ *         description: 추가 정보 옵션
  *     responses:
  *       200:
  *         description: 도서 상품 상세 조회 성공
@@ -39,15 +61,19 @@ const aladinProductUrlWithKey = `${aladinProductUrl}?ttbkey=${process.env.ALADIN
  *           application/json:
  *             schema:
  *               type: object
-
+ *       400:
+ *         description: 잘못된 요청 (ItemId 필수)
+ *       500:
+ *         description: 서버 오류 또는 외부 API 오류
  */
 router.get("/:ItemId", async (req, res) => {
   try {
     const {
       itemIdType = "ISBN13",
-      Cover = "Mid",
+      Cover = "Big",
       Version = "20131101",
       output = "JS",
+      OptResult = "ratingInfo,eventList,authors,reviewList,fulldescription,Toc,Story,mdrecommend,phraseList",
     } = req.query;
 
     const ItemId = req.params.ItemId;
