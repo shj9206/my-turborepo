@@ -2,7 +2,8 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
-import { BookCover } from "@repo/ui";
+import { BookCover } from "@/app/_components";
+import Link from "next/link";
 
 /**
  * 이미지 섹션 컴포넌트
@@ -22,7 +23,9 @@ export const BookCoverSection = ({ items }: { items: any[] }) => {
       >
         {items.map((item: any) => (
           <SwiperSlide key={item.id} style={{ width: "auto" }}>
-            <BookCover imageUrl={item.cover} size="sm" />
+            <Link href={`/product/${item.isbn13}`}>
+            <BookCover src={item.cover} alt={item.title} size="sm" />
+            </Link>
           </SwiperSlide>
         ))}
       </Swiper>

@@ -1,5 +1,6 @@
 import { IListItemProps } from "./interface";
 import { formatDate, formatPrice } from "@repo/ui";
+import { BookCover } from "@/app/_components";
 
 /**
  * PC 리스트 아이템
@@ -9,7 +10,11 @@ import { formatDate, formatPrice } from "@repo/ui";
  * @description  PC 리스트 아이템 컴포넌트
  */
 
-export const ListItemPC = ({ item, index, handleOnClick }: IListItemProps & { handleOnClick: () => void }) => {
+export const ListItemPC = ({
+  item,
+  index,
+  handleOnClick,
+}: IListItemProps & { handleOnClick: () => void }) => {
   const discountRate =
     item.priceStandard && item.priceSales
       ? Math.round(
@@ -18,18 +23,16 @@ export const ListItemPC = ({ item, index, handleOnClick }: IListItemProps & { ha
       : null;
 
   return (
-    <div
+    <article
       key={item.isbn || index}
-      className="flex gap-4 p-4 rounded-lg  hover:border-gray-300 hover:shadow-md transition-all cursor-pointer bg-white group"
+      tabIndex={0}
+      aria-label={`${item.title}${item.author ? ` - ${item.author}` : ""} 상세 정보 보기`}
+      className="flex gap-4 p-4 rounded-lg hover:border-gray-300 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all cursor-pointer bg-white group"
       onClick={handleOnClick}
     >
       {item.cover && (
         <div className="flex-shrink-0">
-          <img
-            src={item.cover}
-            alt={item.title}
-            className="w-32 h-44 object-cover shadow-md group-hover:shadow-lg transition-shadow"
-          />
+          <BookCover src={item.cover} alt={item.title} />
         </div>
       )}
 
@@ -41,9 +44,9 @@ export const ListItemPC = ({ item, index, handleOnClick }: IListItemProps & { ha
               {item.categoryName}
             </span>
           )}
-          <h3 className="text-lg font-bold text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors">
+          <h2 className="text-lg font-bold text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors">
             {item.title}
-          </h3>
+          </h2>
         </div>
 
         {/* 메타 정보: 저자, 출판사, 출판일 */}
@@ -52,13 +55,17 @@ export const ListItemPC = ({ item, index, handleOnClick }: IListItemProps & { ha
             {item.author && <span className="font-medium">{item.author}</span>}
             {item.publisher && (
               <>
-                <span className="text-gray-400">·</span>
+                <span className="text-gray-500" aria-hidden="true">
+                  ·
+                </span>
                 <span>{item.publisher}</span>
               </>
             )}
             {item.pubDate && (
               <>
-                <span className="text-gray-400">·</span>
+                <span className="text-gray-500" aria-hidden="true">
+                  ·
+                </span>
                 <span>{formatDate(item.pubDate)}</span>
               </>
             )}
@@ -87,7 +94,10 @@ export const ListItemPC = ({ item, index, handleOnClick }: IListItemProps & { ha
                 )}
                 {item.priceStandard &&
                   item.priceStandard !== item.priceSales && (
-                    <span className="text-sm text-gray-400 line-through">
+                    <span
+                      className="text-sm text-gray-600 line-through"
+                      aria-label={`정가 ${formatPrice(item.priceStandard)}원`}
+                    >
                       {formatPrice(item.priceStandard)}원
                     </span>
                   )}
@@ -95,22 +105,30 @@ export const ListItemPC = ({ item, index, handleOnClick }: IListItemProps & { ha
             )}
           </div>
 
-          <div className="flex items-center gap-4 text-xs text-gray-500">
+          <div className="flex items-center gap-4 text-xs text-gray-600">
             {item.customerReviewRank && (
-              <div className="flex items-center gap-1">
-                <span className="text-yellow-500">★</span>
+              <div
+                className="flex items-center gap-1"
+                aria-label={`평점 ${item.customerReviewRank.toFixed(1)}점`}
+              >
+                <span className="text-yellow-500" aria-hidden="true">
+                  ★
+                </span>
                 <span>{item.customerReviewRank.toFixed(1)}</span>
               </div>
             )}
             {item.salesPoint && (
-              <div className="flex items-center gap-1">
-                <span className="text-blue-500 font-semibold">판매지수</span>
+              <div
+                className="flex items-center gap-1"
+                aria-label={`판매지수 ${formatPrice(item.salesPoint)}`}
+              >
+                <span className="text-blue-600 font-semibold">판매지수</span>
                 <span>{formatPrice(item.salesPoint)}</span>
               </div>
             )}
           </div>
         </div>
       </div>
-    </div>
+    </article>
   );
 };

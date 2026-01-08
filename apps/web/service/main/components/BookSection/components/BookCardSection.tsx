@@ -2,6 +2,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { BookCard } from "../../bookCard";
 import "swiper/css";
+import Link from "next/link";
 
 /**
  * 카드 섹션 컴포넌트
@@ -23,13 +24,15 @@ export const BookCardSection = ({ items }: { items: any[] }) => {
       >
         {items.map((item: any, index: number) => (
           <SwiperSlide key={item.id} style={{ width: "auto" }}>
-            <BookCard
-              index={index ?? 0}
-              key={item.id}
-              imageUrl={item.cover}
-              title={item.title}
-              author={item.author}
-            />
+            <Link href={`/product/${item.isbn13}`}>
+              <BookCard
+                index={index ?? 0}
+                key={item.id}
+                imageUrl={item.cover}
+                title={item.title}
+                author={item.author}
+              />
+            </Link>
           </SwiperSlide>
         ))}
       </Swiper>

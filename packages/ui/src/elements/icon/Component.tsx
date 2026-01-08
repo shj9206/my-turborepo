@@ -116,8 +116,8 @@ const iconComponents = {
         height="16"
       >
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
+          fillRule="evenodd"
+          clipRule="evenodd"
           d="M6.42701 0.333313C3.06418 0.333313 0.333344 3.03771 0.333344 6.37954C0.333344 9.72137 3.06418 12.4258 6.42701 12.4258C7.68076 12.4258 8.847 12.0497 9.81629 11.405L13.7917 15.3476C14.2206 15.773 14.9149 15.773 15.3438 15.3476C15.7743 14.9207 15.7743 14.2274 15.3438 13.8005L11.3939 9.8831C12.1032 8.89485 12.5207 7.68529 12.5207 6.37954C12.5207 3.03771 9.78985 0.333313 6.42701 0.333313ZM2.53118 6.37954C2.53118 4.24976 4.2728 2.51853 6.42701 2.51853C8.58123 2.51853 10.3228 4.24976 10.3228 6.37954C10.3228 8.50932 8.58123 10.2405 6.42701 10.2405C4.2728 10.2405 2.53118 8.50932 2.53118 6.37954Z"
           fill="#006FFD"
         />
@@ -201,7 +201,12 @@ const sizeClasses = {
   lg: "w-8 h-8",
 } as const;
 
-const Icon = ({ name, className, size = "md" }: IIconProps) => {
+const Icon = ({
+  name,
+  className,
+  size = "md",
+  "aria-hidden": ariaHidden = true,
+}: IIconProps) => {
   const IconComponent = iconComponents[name] as React.ComponentType<
     React.SVGProps<SVGSVGElement>
   >;
@@ -209,7 +214,7 @@ const Icon = ({ name, className, size = "md" }: IIconProps) => {
   return (
     <IconComponent
       className={cn(sizeClasses[size], className)}
-      aria-hidden="true"
+      aria-hidden={ariaHidden}
     />
   );
 };

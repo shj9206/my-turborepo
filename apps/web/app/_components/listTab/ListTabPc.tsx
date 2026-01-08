@@ -17,6 +17,8 @@ export const ListTabPc = (props: IListTabComponentProps) => {
             )}
             onClick={() => handleTabClick(tab.value)}
             key={tab.value}
+            aria-label={`${tab.name} 탭`}
+            aria-current={activeTab === tab.value ? "page" : undefined}
           >
             {tab.name}
           </button>

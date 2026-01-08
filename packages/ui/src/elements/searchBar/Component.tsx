@@ -12,7 +12,7 @@ export const SearchBar = ({
   const [target, setTarget] = useState<string>(targetList?.[0]?.value || "");
   const [isTargetOpen, setIsTargetOpen] = useState<boolean>(false);
   const popoverRef = useRef<HTMLDivElement>(null);
-  const buttonRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const handleTargetSelect = (value: string) => {
     setTarget(value);
@@ -49,10 +49,14 @@ export const SearchBar = ({
     <section className="w-full flex flex-row gap-2 items-center justify-between h-14 rounded-2xl shadow-md border border-gray-200 px-4 py-3">
       <div className="flex flex-row gap-2 items-center w-full relative">
         {targetList && (
-          <div
+          <button
             ref={buttonRef}
-            className="relative flex-shrink-0 flex flex-row items-center gap-2 cursor-pointer"
+            type="button"
+            className="relative flex-shrink-0 flex flex-row items-center gap-2 cursor-pointer bg-transparent border-none p-0"
             onClick={togglePopover}
+            aria-label={`검색 대상 선택: ${targetList.find((item) => item.value === target)?.name || ""}`}
+            aria-expanded={isTargetOpen}
+            aria-haspopup="listbox"
           >
             <span
               key={target}
@@ -65,18 +69,25 @@ export const SearchBar = ({
               className={`w-4 h-4 transition-transform ${
                 isTargetOpen ? "rotate-180" : ""
               }`}
+              aria-hidden="true"
             />
             {isTargetOpen && (
               <div
                 ref={popoverRef}
+                role="listbox"
                 className="absolute w-full top-full left-[-15px] mt-2 min-w-[120px] bg-white rounded-xl shadow-lg z-50 border border-gray-200 overflow-hidden animate-in fade-in-0 zoom-in-95"
               >
                 <div className="flex flex-col py-1">
                   {targetList?.map((item) => (
                     <button
                       key={item.value}
-                      className={`w-full text-center px-4 py-2 transition-colors `}
+                      role="option"
+                      aria-selected={item.value === target}
+                      className={`w-full text-center px-4 py-2 transition-colors ${
+                        item.value === target ? "bg-blue-50 font-semibold" : ""
+                      }`}
                       onClick={() => handleTargetSelect(item.value)}
+                      aria-label={`${item.name} 선택`}
                     >
                       {item.name}
                     </button>
@@ -84,7 +95,7 @@ export const SearchBar = ({
                 </div>
               </div>
             )}
-          </div>
+          </button>
         )}
         <input
           type="text"
@@ -103,8 +114,9 @@ export const SearchBar = ({
       <button
         className="items-center justify-center cursor-pointer"
         onClick={() => onSearch(target)}
+        aria-label="검색"
       >
-        <Icon name="search" />
+        <Icon name="search" aria-hidden="true" />
       </button>
     </section>
   );

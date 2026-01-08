@@ -12,6 +12,8 @@ export const ListTabMo = (props: IListTabComponentProps) => {
             className={cn("w-full ", activeTab === tab.value && "font-bold ")}
             key={tab.value}
             onClick={() => handleTabClick(tab.value)}
+            aria-label={`${tab.name} 탭`}
+            aria-current={activeTab === tab.value ? "page" : undefined}
           >
             {tab.name}
           </button>

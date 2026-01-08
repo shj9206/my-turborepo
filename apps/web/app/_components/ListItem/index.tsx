@@ -1,3 +1,5 @@
+"use client";
+
 import { ListItemPC } from "./ListItemPC";
 import { ListItemMo } from "./ListItemMo";
 import { useView } from "@/app/_provider/viewProvider";

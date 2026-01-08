@@ -1,6 +1,6 @@
-import { BookCover } from "@repo/ui";
 import { cn } from "@repo/util";
 import { IBookCardProps } from "./interface";
+import { BookCover } from "@/app/_components";
 
 export const BookCardMo = ({
   imageUrl,
@@ -15,7 +15,7 @@ export const BookCardMo = ({
         bgColor
       )}
     >
-      <BookCover imageUrl={imageUrl} size="xs" />
+      <BookCover src={imageUrl} alt={title} size="xs" />
       <div className="w-full h-full flex flex-col gap-3 min-w-0">
         <div className="flex flex-col gap-2 min-w-0">
           <span className="text-lg font-bold line-clamp-2">{title}</span>
@@ -25,4 +25,3 @@ export const BookCardMo = ({
     </section>
   );
 };
-

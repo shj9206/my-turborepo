@@ -4,7 +4,8 @@ import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
-import { BookCover } from "@repo/ui";
+import { BookCover } from "@/app/_components";
+import Link from "next/link";
 
 /**
  * 책이미지 설명 섹션 컴포넌트
@@ -38,7 +39,9 @@ export const BookTextSection = ({ items }: { items: any[] }) => {
                   transformOrigin: "center bottom",
                 }}
               >
-                <BookCover imageUrl={item.cover} size={"sm"} />
+                <Link href={`/product/${item.isbn13}`}>
+                  <BookCover src={item.cover} alt={item.title} size={"sm"} />
+                </Link>
               </div>
             </SwiperSlide>
           ))}
