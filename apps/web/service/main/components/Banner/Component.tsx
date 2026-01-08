@@ -24,7 +24,7 @@ const items: BannerItem[] = [
   },
   {
     id: 2,
-    image: "/images/skillStack.png",
+    image: "/images/skillStack2.png",
   },
 ];
 
