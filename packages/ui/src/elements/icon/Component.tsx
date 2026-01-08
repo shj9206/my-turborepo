@@ -201,7 +201,12 @@ const sizeClasses = {
   lg: "w-8 h-8",
 } as const;
 
-const Icon = ({ name, className, size = "md", "aria-hidden": ariaHidden = true }: IIconProps) => {
+const Icon = ({
+  name,
+  className,
+  size = "md",
+  "aria-hidden": ariaHidden = true,
+}: IIconProps) => {
   const IconComponent = iconComponents[name] as React.ComponentType<
     React.SVGProps<SVGSVGElement>
   >;
