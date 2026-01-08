@@ -201,7 +201,7 @@ const sizeClasses = {
   lg: "w-8 h-8",
 } as const;
 
-const Icon = ({ name, className, size = "md" }: IIconProps) => {
+const Icon = ({ name, className, size = "md", "aria-hidden": ariaHidden = true }: IIconProps) => {
   const IconComponent = iconComponents[name] as React.ComponentType<
     React.SVGProps<SVGSVGElement>
   >;
@@ -209,7 +209,7 @@ const Icon = ({ name, className, size = "md" }: IIconProps) => {
   return (
     <IconComponent
       className={cn(sizeClasses[size], className)}
-      aria-hidden="true"
+      aria-hidden={ariaHidden}
     />
   );
 };

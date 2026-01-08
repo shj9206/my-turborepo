@@ -13,4 +13,5 @@ export interface IIconProps {
     | "chevronDoubleRight";
   className?: string;
   size?: "sm" | "md" | "lg";
+  "aria-hidden"?: boolean | "true" | "false";
 }
