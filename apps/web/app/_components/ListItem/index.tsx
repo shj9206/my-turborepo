@@ -2,6 +2,7 @@ import { ListItemPC } from "./ListItemPC";
 import { ListItemMo } from "./ListItemMo";
 import { useView } from "@/app/_provider/viewProvider";
 import { IListItemProps } from "./interface";
+import { useRouter } from "next/navigation";
 
 /**
  * 리스트 아이템
@@ -12,6 +13,17 @@ import { IListItemProps } from "./interface";
  */
 export const ListItem = ({ item, index }: IListItemProps) => {
   const { IS_MOBILE } = useView();
+  const router = useRouter();
+
+  const handleOnClickItem = () => {
+    if (!item.isbn13) {
+      console.warn("isbn13 is missing for item:", item);
+      return;
+    }
+    router.push(`/product/${item.isbn13}`);
+  };
   const Component = IS_MOBILE ? ListItemMo : ListItemPC;
-  return <Component item={item} index={index} />;
+  return (
+    <Component item={item} index={index} handleOnClick={handleOnClickItem} />
+  );
 };

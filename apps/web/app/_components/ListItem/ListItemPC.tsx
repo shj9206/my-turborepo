@@ -9,7 +9,7 @@ import { formatDate, formatPrice } from "@repo/ui";
  * @description  PC 리스트 아이템 컴포넌트
  */
 
-export const ListItemPC = ({ item, index }: IListItemProps) => {
+export const ListItemPC = ({ item, index, handleOnClick }: IListItemProps & { handleOnClick: () => void }) => {
   const discountRate =
     item.priceStandard && item.priceSales
       ? Math.round(
@@ -21,6 +21,7 @@ export const ListItemPC = ({ item, index }: IListItemProps) => {
     <div
       key={item.isbn || index}
       className="flex gap-4 p-4 rounded-lg  hover:border-gray-300 hover:shadow-md transition-all cursor-pointer bg-white group"
+      onClick={handleOnClick}
     >
       {item.cover && (
         <div className="flex-shrink-0">

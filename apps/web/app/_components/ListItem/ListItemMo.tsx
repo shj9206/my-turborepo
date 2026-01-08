@@ -1,7 +1,6 @@
 import { IListItemProps } from "./interface";
 import { formatDate, formatPrice } from "@repo/ui";
 
-
 /**
  * 모바일 리스트 아이템
  * @param item - 리스트 아이템 데이터
@@ -9,7 +8,11 @@ import { formatDate, formatPrice } from "@repo/ui";
  * @returns 리스트 아이템 모바일 컴포넌트
  * @description 반응형 모바일 리스트 아이템 컴포넌트
  */
-export const ListItemMo = ({ item, index }: IListItemProps) => {
+export const ListItemMo = ({
+  item,
+  index,
+  handleOnClick,
+}: IListItemProps & { handleOnClick: () => void }) => {
   const discountRate =
     item.priceStandard && item.priceSales
       ? Math.round(
@@ -21,6 +24,7 @@ export const ListItemMo = ({ item, index }: IListItemProps) => {
     <div
       key={item.isbn || index}
       className="group flex gap-2 sm:gap-3 md:gap-4 p-2 sm:p-3 md:p-4 rounded-lg bg-white border-b border-gray-200 cursor-pointer hover:border-gray-300 hover:shadow-lg transition-all duration-300 active:scale-[0.98] md:hover:scale-[1.01]"
+      onClick={handleOnClick}
     >
       {item.cover && (
         <div className="flex-shrink-0 relative">
