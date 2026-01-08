@@ -22,11 +22,22 @@ export const ListItemPC = ({
         )
       : null;
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      handleOnClick();
+    }
+  };
+
   return (
-    <div
+    <article
       key={item.isbn || index}
-      className="flex gap-4 p-4 rounded-lg  hover:border-gray-300 hover:shadow-md transition-all cursor-pointer bg-white group"
+      role="button"
+      tabIndex={0}
+      aria-label={`${item.title}${item.author ? ` - ${item.author}` : ""} 상세 정보 보기`}
+      className="flex gap-4 p-4 rounded-lg hover:border-gray-300 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all cursor-pointer bg-white group"
       onClick={handleOnClick}
+      onKeyDown={handleKeyDown}
     >
       {item.cover && (
         <div className="flex-shrink-0">
@@ -53,13 +64,17 @@ export const ListItemPC = ({
             {item.author && <span className="font-medium">{item.author}</span>}
             {item.publisher && (
               <>
-                <span className="text-gray-400">·</span>
+                <span className="text-gray-500" aria-hidden="true">
+                  ·
+                </span>
                 <span>{item.publisher}</span>
               </>
             )}
             {item.pubDate && (
               <>
-                <span className="text-gray-400">·</span>
+                <span className="text-gray-500" aria-hidden="true">
+                  ·
+                </span>
                 <span>{formatDate(item.pubDate)}</span>
               </>
             )}
@@ -88,7 +103,10 @@ export const ListItemPC = ({
                 )}
                 {item.priceStandard &&
                   item.priceStandard !== item.priceSales && (
-                    <span className="text-sm text-gray-400 line-through">
+                    <span
+                      className="text-sm text-gray-500 line-through"
+                      aria-label={`정가 ${formatPrice(item.priceStandard)}원`}
+                    >
                       {formatPrice(item.priceStandard)}원
                     </span>
                   )}
@@ -96,15 +114,23 @@ export const ListItemPC = ({
             )}
           </div>
 
-          <div className="flex items-center gap-4 text-xs text-gray-500">
+          <div className="flex items-center gap-4 text-xs text-gray-600">
             {item.customerReviewRank && (
-              <div className="flex items-center gap-1">
-                <span className="text-yellow-500">★</span>
+              <div
+                className="flex items-center gap-1"
+                aria-label={`평점 ${item.customerReviewRank.toFixed(1)}점`}
+              >
+                <span className="text-yellow-500" aria-hidden="true">
+                  ★
+                </span>
                 <span>{item.customerReviewRank.toFixed(1)}</span>
               </div>
             )}
             {item.salesPoint && (
-              <div className="flex items-center gap-1">
+              <div
+                className="flex items-center gap-1"
+                aria-label={`판매지수 ${formatPrice(item.salesPoint)}`}
+              >
                 <span className="text-blue-500 font-semibold">판매지수</span>
                 <span>{formatPrice(item.salesPoint)}</span>
               </div>
@@ -112,6 +138,6 @@ export const ListItemPC = ({
           </div>
         </div>
       </div>
-    </div>
+    </article>
   );
 };
