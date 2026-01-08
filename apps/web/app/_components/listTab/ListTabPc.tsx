@@ -1,0 +1,27 @@
+import React from "react";
+import { IListTabComponentProps } from "./interface";
+
+import { cn } from "@repo/util";
+
+export const ListTabPc = (props: IListTabComponentProps) => {
+  const { tabList, handleTabClick, activeTab } = props;
+
+  return (
+    <section className="w-full mx-auto px-6 py-8">
+      <div className="flex flex-row w-full justify-center">
+        {tabList.map((tab) => (
+          <button
+            className={cn(
+              "w-full border border-gray-300 rounded-t-[4px]  px-4 py-2 border-b-black",
+              activeTab === tab.value && "border-black border-b-0 font-bold "
+            )}
+            onClick={() => handleTabClick(tab.value)}
+            key={tab.value}
+          >
+            {tab.name}
+          </button>
+        ))}
+      </div>
+    </section>
+  );
+};

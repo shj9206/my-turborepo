@@ -1,7 +1,8 @@
 import { IHeaderProps } from "./interface";
 import { SearchBar } from "@repo/ui";
 
-const HeaderMok = ({
+const HeaderMo = ({
+  targetList,
   searchValue,
   setSearchValue,
   handleSearch,
@@ -9,6 +10,7 @@ const HeaderMok = ({
   return (
     <section className="w-full mx-auto flex flex-row items-center px-4 py-7 justify-between">
       <SearchBar
+        targetList={targetList}
         onChange={setSearchValue}
         onSearch={handleSearch}
         value={searchValue}
@@ -17,4 +19,4 @@ const HeaderMok = ({
   );
 };
 
-export default HeaderMok;
+export default HeaderMo;

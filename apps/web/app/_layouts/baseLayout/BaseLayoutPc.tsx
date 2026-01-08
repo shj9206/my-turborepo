@@ -1,8 +1,8 @@
-import Header from "@/app/_components/header";
+import Header from "@/app/_components/Header";
 import { IBaseLayoutProps } from "./interface";
 import { Footer } from "@repo/ui";
 
-export const BaseLayoutInk = ({ children }: IBaseLayoutProps) => {
+export const BaseLayoutPc = ({ children }: IBaseLayoutProps) => {
   return (
     <section className="w-[calc(100%-600px)] mx-auto flex flex-col">
       <Header />

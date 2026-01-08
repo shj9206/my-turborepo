@@ -1,4 +1,4 @@
-import { BookCardMok } from "./BookCardMok";
+import { BookCardMo } from "./BookCardMo";
 import { IBookCardProps } from "./interface";
 
 export const BookCard = ({
@@ -9,7 +9,7 @@ export const BookCard = ({
 }: IBookCardProps) => {
   const bgColors = ["bg-blue-20", "bg-red-20", "bg-purple-20"];
   const bgColor = bgColors[index % 3];
-  const Component = BookCardMok;
+  const Component = BookCardMo;
   return (
     <Component
       bgColor={bgColor ?? "bg-blue-20"}

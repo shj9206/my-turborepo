@@ -1,11 +1,11 @@
-export const FooterInk = () => {
+export const FooterPc = () => {
   return (
     <footer className="flex flex-col border-t border-gray-200 p-8 pb-12  gap-5 justify-center items-center w-[100vw] ml-[calc(50%-50vw)]">
       <span className="text-sm text-black font-bold">준스코프</span>
       <div className="flex flex-col gap-1 items-center">
         <span className="text-xs text-gray-500">대표자 : 송화준</span>
         <span className="text-xs text-gray-500">사업자등록 : 175-22-01436</span>
-        <span className="text-xs text-gray-500">전호번호 : 010-3800-5898</span>
+        <span className="text-xs text-gray-500">전화번호 : 010-3800-5865</span>
         <span className="text-xs text-gray-500">
           이메일 : shj9206@gmail.com
         </span>

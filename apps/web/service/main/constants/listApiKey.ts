@@ -5,6 +5,8 @@ export const LIST_API_URL = {
   BLOG_BEST: "http://localhost:3000/api/list?QueryType=BlogBest", //블로거 베스트셀러
 };
 
+
+
 export const LIST_TITLE = {
   NEW_ALL: "신간 전체 리스트",
   NEW_SPECIAL: "주목할 만한 신간 리스트",

@@ -80,9 +80,10 @@ router.get("/", optionalAuth, async (req, res) => {
       Query = "",
       MaxResults = 10,
       start = 1,
-      SearchTarget = "Book",
+      SearchTarget = "All",
       output = "JS",
       Version = "20131101",
+      Cover = "Big",
     } = req.query;
 
     // 파라미터 유효성 검증

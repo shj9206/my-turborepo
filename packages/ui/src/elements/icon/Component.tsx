@@ -2,6 +2,7 @@ import { cn } from "@repo/util";
 import { IIconProps } from "./interface";
 
 const iconComponents = {
+  // todo : icon refactoring, 각 icon svg 파일로 처리 후, import 할 예정
   check: (props: React.SVGProps<SVGSVGElement>) => (
     <svg
       {...props}
@@ -103,6 +104,7 @@ const iconComponents = {
       height="16"
       viewBox="0 0 16 16"
       fill="none"
+      className={cn(props.className)}
     >
       <mask
         id="mask0_136_9995"
@@ -136,6 +138,61 @@ const iconComponents = {
       />
     </svg>
   ),
+  chevronDown: (props: React.SVGProps<SVGSVGElement>) => (
+    <svg {...props} viewBox="0 0 24 24" fill="none">
+      <path
+        d="M6 9L12 15L18 9"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
+  chevronLeft: (props: React.SVGProps<SVGSVGElement>) => (
+    <svg {...props} viewBox="0 0 24 24" fill="none">
+      <path
+        d="M15 19l-7-7 7-7"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
+  chevronRight: (props: React.SVGProps<SVGSVGElement>) => (
+    <svg {...props} viewBox="0 0 24 24" fill="none">
+      <path
+        d="M9 5l7 7-7 7"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
+  chevronDoubleLeft: (props: React.SVGProps<SVGSVGElement>) => (
+    <svg {...props} viewBox="0 0 24 24" fill="none">
+      <path
+        d="M11 19l-7-7 7-7m8 14l-7-7 7-7"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
+  chevronDoubleRight: (props: React.SVGProps<SVGSVGElement>) => (
+    <svg {...props} viewBox="0 0 24 24" fill="none">
+      <path
+        d="M13 5l7 7-7 7M5 5l7 7-7 7"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
 } as const;
 
 const sizeClasses = {
@@ -145,7 +202,9 @@ const sizeClasses = {
 } as const;
 
 const Icon = ({ name, className, size = "md" }: IIconProps) => {
-  const IconComponent = iconComponents[name];
+  const IconComponent = iconComponents[name] as React.ComponentType<
+    React.SVGProps<SVGSVGElement>
+  >;
 
   return (
     <IconComponent

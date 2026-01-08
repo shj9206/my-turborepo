@@ -4,4 +4,5 @@ export interface ICheckboxProps {
   size?: "small" | "medium" | "large";
   checked?: boolean;
   icon?: "check" | "star" | "heart" | "fill" | "search" | "close";
+  label?: string;
 }

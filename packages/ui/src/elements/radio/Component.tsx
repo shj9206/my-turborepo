@@ -6,6 +6,7 @@ const Radio = ({
   onChange,
   size = "medium",
   checked,
+  label = "",
 }: IRadioProps) => {
   const sizeClasses = {
     small: "w-4 h-4",
@@ -47,6 +48,7 @@ const Radio = ({
           )}
         />
       </div>
+      {label && <span className="text-sm text-gray-500">{label}</span>}
     </label>
   );
 };
