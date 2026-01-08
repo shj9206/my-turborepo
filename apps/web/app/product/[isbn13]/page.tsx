@@ -1,5 +1,4 @@
-import { ProductDetail, ProductDetailSkeleton } from "@/service/detail";
-import { Suspense } from "react";
+import { ProductDetail } from "@/service/detail";
 import { Metadata } from "next";
 import { IProductDetailResponse } from "@/service/detail/interface";
 import { PRODUCT_API_URL } from "@/service/detail/constants/productApiKey";
@@ -8,6 +7,31 @@ interface IProductPageProps {
   params: {
     isbn13: string;
   };
+}
+
+/**
+ * 상품 데이터 가져오기 (공통 함수)
+ * @param isbn13 - 상품 ISBN13
+ * @returns 상품 상세 응답 데이터
+ * @description generateMetadata와 페이지 컴포넌트에서 공통으로 사용하는 데이터 fetching 함수
+ */
+async function getProductData(
+  isbn13: string
+): Promise<IProductDetailResponse | null> {
+  try {
+    const res = await fetch(`${PRODUCT_API_URL.PRODUCT}/${isbn13}`, {
+      next: { revalidate: 3600 }, // 1시간 캐시
+    });
+
+    if (!res.ok) {
+      return null;
+    }
+
+    return await res.json();
+  } catch (error) {
+    console.error("상품 데이터 가져오기 오류:", error);
+    return null;
+  }
 }
 
 /**
@@ -22,55 +46,35 @@ export async function generateMetadata({
 }: IProductPageProps): Promise<Metadata> {
   const { isbn13 } = params;
 
-  try {
-    const res = await fetch(`${PRODUCT_API_URL.PRODUCT}/${isbn13}`, {
-      next: { revalidate: 3600 }, // 1시간 캐시
-    });
+  const data = await getProductData(isbn13);
+  const item = data?.item?.[0];
 
-    if (!res.ok) {
-      return {
-        title: "상품 상세 | 도서 정보",
-        description: "도서 상세 정보를 확인하세요.",
-      };
-    }
-
-    const data: IProductDetailResponse = await res.json();
-    const item = data?.item?.[0];
-
-    if (!item) {
-      return {
-        title: "상품 상세 | 도서 정보",
-        description: "도서 상세 정보를 확인하세요.",
-      };
-    }
-
-    const title = item.title || "상품 상세";
-    const description =
-      item.description 
-
-    return {
-      title: title,
-      description: description,
-      openGraph: {
-        title: title,
-        description: description,
-        images: item.cover ? [item.cover] : [],
-        type: "website",
-      },
-      twitter: {
-        card: "summary_large_image",
-        title: title,
-        description: description,
-        images: item.cover ? [item.cover] : [],
-      },
-    };
-  } catch (error) {
-    console.error("메타데이터 생성 중 오류:", error);
+  if (!item) {
     return {
       title: "상품 상세 | 도서 정보",
       description: "도서 상세 정보를 확인하세요.",
     };
   }
+
+  const title = item.title || "상품 상세";
+  const description = item.description || "도서 상세 정보를 확인하세요.";
+
+  return {
+    title: title,
+    description: description,
+    openGraph: {
+      title: title,
+      description: description,
+      images: item.cover ? [item.cover] : [],
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: title,
+      description: description,
+      images: item.cover ? [item.cover] : [],
+    },
+  };
 }
 
 /**
@@ -78,16 +82,23 @@ export async function generateMetadata({
  * @param params - 라우트 파라미터 (isbn13)
  * @returns 상품 상세 페이지 컴포넌트
  * @description ISBN을 기반으로 상품 상세 정보를 표시하는 페이지
- * Suspense로 로딩 상태를 처리합니다.
+ * generateMetadata에서 가져온 데이터를 ProductDetail에 전달하여 중복 fetch를 방지합니다.
  */
-export default function ProductPage({ params }: IProductPageProps) {
+export default async function ProductPage({ params }: IProductPageProps) {
   const { isbn13 } = params;
+
+  // generateMetadata와 동일한 데이터를 가져와서 ProductDetail에 전달
+  const data = await getProductData(isbn13);
+  const item = data?.item?.[0];
+
+  if (!item) {
+    // 데이터가 없으면 not-found로 리다이렉트하거나 에러 처리
+    throw new Error("상품을 찾을 수 없습니다.");
+  }
 
   return (
     <section className="w-full mx-auto flex flex-col">
-      <Suspense fallback={<ProductDetailSkeleton />}>
-        <ProductDetail isbn13={isbn13} />
-      </Suspense>
+      <ProductDetail initialData={data} />
     </section>
   );
 }
