@@ -2,6 +2,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { ResponsiveCard } from "@repo/ui";
+import Link from "next/link";
 
 /**
  * 카드 섹션 컴포넌트
@@ -24,13 +25,14 @@ export const ResponsiveCardSection = ({ items }: { items: any[] }) => {
       >
         {items.map((item: any, index: number) => (
           <SwiperSlide key={item.id} style={{ width: "auto" }}>
-            <ResponsiveCard
-              imageUrl={item.cover}
-              title={item.author}
-              subTitle={item.title}
-              description={item.description}
-              link={item.link}
-            />
+            <Link href={`/product/${item.isbn13}`}>
+              <ResponsiveCard
+                imageUrl={item.cover}
+                title={item.author}
+                subTitle={item.title}
+                description={item.description}
+              />
+            </Link>
           </SwiperSlide>
         ))}
       </Swiper>

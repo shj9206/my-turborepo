@@ -27,13 +27,19 @@ export const ResponsiveCard = ({
           <div className="text-sm font-semibold tracking-wide text-indigo-500 uppercase line-clamp-1 md:line-clamp-2 overflow-hidden">
             {title}
           </div>
-          {link && (
-            <a
-              href={link}
-              className="mt-1 text-lg tracking-wide font-medium text-black hover:underline line-clamp-1 md:line-clamp-2 overflow-hidden"
-            >
-              {subTitle}
-            </a>
+          {subTitle && (
+            link ? (
+              <a
+                href={link}
+                className="mt-1 text-lg tracking-wide font-medium text-black hover:underline line-clamp-1 md:line-clamp-2 overflow-hidden"
+              >
+                {subTitle}
+              </a>
+            ) : (
+              <div className="mt-1 text-lg tracking-wide font-medium text-black line-clamp-1 md:line-clamp-2 overflow-hidden">
+                {subTitle}
+              </div>
+            )
           )}
           <p className="mt-2 text-gray-500 line-clamp-5 overflow-hidden">
             {description}
