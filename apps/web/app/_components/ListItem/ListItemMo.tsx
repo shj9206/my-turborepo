@@ -44,9 +44,9 @@ export const ListItemMo = ({
         )}
 
         {/* 제목 */}
-        <h3 className="text-xs sm:text-sm md:text-base font-bold text-gray-900 line-clamp-2 leading-snug group-hover:text-blue-600 transition-colors duration-200">
+        <h2 className="text-xs sm:text-sm md:text-base font-bold text-gray-900 line-clamp-2 leading-snug group-hover:text-blue-600 transition-colors duration-200">
           {item.title}
-        </h3>
+        </h2>
 
         {/* 저자, 출판사, 출판일 */}
         <div className="flex flex-wrap items-center gap-1 sm:gap-1.5 text-[10px] sm:text-[11px] md:text-xs text-gray-600">

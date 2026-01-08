@@ -44,9 +44,9 @@ export const ListItemPC = ({
               {item.categoryName}
             </span>
           )}
-          <h3 className="text-lg font-bold text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors">
+          <h2 className="text-lg font-bold text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors">
             {item.title}
-          </h3>
+          </h2>
         </div>
 
         {/* 메타 정보: 저자, 출판사, 출판일 */}
