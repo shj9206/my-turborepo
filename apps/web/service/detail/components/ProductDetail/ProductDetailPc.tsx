@@ -15,19 +15,7 @@ import { ListBoundary } from "@/app/_components/ListBoundary";
  * @returns PC 상품 상세 컴포넌트
  * @description PC 상품 상세 컴포넌트
  */
-export const ProductDetailPc = ({ isbn13 }: IProductDetailProps) => {
-  const { data, isLoading, error } = useQuery<IProductDetailResponse>({
-    queryKey: [PRODUCT_API_KEY.PRODUCT, isbn13],
-    queryFn: async (): Promise<IProductDetailResponse> => {
-      const res = await fetch(`${PRODUCT_API_URL.PRODUCT}/${isbn13}`);
-      if (!res.ok) throw new Error("Failed to fetch data");
-      return res.json();
-    },
-    enabled: !!isbn13,
-  });
-
-  const item = data?.item?.[0];
-
+export const ProductDetailPc = ({ item }: IProductDetailProps) => {
   const discountRate =
     item?.priceStandard && item?.priceSales
       ? Math.round(

@@ -11,8 +11,8 @@ import { IProductDetailProps } from "../../interface";
  * @returns 상품 상세 컴포넌트
  * @description 반응형 상품 상세 컴포넌트, PC, MO 구분
  */
-export const ProductDetail = ({ isbn13 }: IProductDetailProps) => {
+export const ProductDetail = ({ item,  }: IProductDetailProps) => {
   const { IS_MOBILE } = useView();
   const Component = IS_MOBILE ? ProductDetailMo : ProductDetailPc;
-  return <Component isbn13={isbn13} />;
+  return <Component item={item} />;
 };

@@ -15,19 +15,7 @@ import { ListBoundary } from "@/app/_components/ListBoundary";
  * @returns 모바일 상품 상세 컴포넌트
  * @description 모바일 상품 상세 컴포넌트
  */
-export const ProductDetailMo = ({ isbn13 }: IProductDetailProps) => {
-  const { data, isLoading, error } = useQuery<IProductDetailResponse>({
-    queryKey: [PRODUCT_API_KEY.PRODUCT, isbn13],
-    queryFn: async (): Promise<IProductDetailResponse> => {
-      const res = await fetch(`${PRODUCT_API_URL.PRODUCT}/${isbn13}`);
-      if (!res.ok) throw new Error("Failed to fetch data");
-      return res.json();
-    },
-    enabled: !!isbn13,
-  });
-
-  const item = data?.item?.[0];
-
+export const ProductDetailMo = ({ item }: IProductDetailProps) => {
   const discountRate =
     item?.priceStandard && item?.priceSales
       ? Math.round(

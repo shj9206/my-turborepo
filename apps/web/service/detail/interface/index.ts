@@ -9,5 +9,5 @@ export interface IProductDetailResponse {
 }
 
 export interface IProductDetailProps {
-  isbn13: string;
+  item: IBookItem;
 }
