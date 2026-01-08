@@ -4,7 +4,7 @@ import { FooterPc } from "@repo/ui";
 
 export const BaseLayoutPc = ({ children }: IBaseLayoutProps) => {
   return (
-    <section className="w-[calc(100%-600px)] mx-auto flex flex-col">
+    <section className="w-[calc(100%-1300px)] mx-auto flex flex-col">
       <Header />
       {children}
       <FooterPc />
