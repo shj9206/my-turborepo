@@ -1,5 +1,6 @@
 import { IListItemProps } from "./interface";
 import { formatDate, formatPrice } from "@repo/ui";
+import { BookCover } from "@/app/_components";
 
 /**
  * PC 리스트 아이템
@@ -9,7 +10,11 @@ import { formatDate, formatPrice } from "@repo/ui";
  * @description  PC 리스트 아이템 컴포넌트
  */
 
-export const ListItemPC = ({ item, index, handleOnClick }: IListItemProps & { handleOnClick: () => void }) => {
+export const ListItemPC = ({
+  item,
+  index,
+  handleOnClick,
+}: IListItemProps & { handleOnClick: () => void }) => {
   const discountRate =
     item.priceStandard && item.priceSales
       ? Math.round(
@@ -25,11 +30,7 @@ export const ListItemPC = ({ item, index, handleOnClick }: IListItemProps & { ha
     >
       {item.cover && (
         <div className="flex-shrink-0">
-          <img
-            src={item.cover}
-            alt={item.title}
-            className="w-32 h-44 object-cover shadow-md group-hover:shadow-lg transition-shadow"
-          />
+          <BookCover src={item.cover} alt={item.title} />
         </div>
       )}
 

@@ -1,5 +1,6 @@
 import { IListItemProps } from "./interface";
 import { formatDate, formatPrice } from "@repo/ui";
+import { BookCover } from "@/app/_components";
 
 /**
  * 모바일 리스트 아이템
@@ -27,17 +28,8 @@ export const ListItemMo = ({
       onClick={handleOnClick}
     >
       {item.cover && (
-        <div className="flex-shrink-0 relative">
-          <img
-            src={item.cover}
-            alt={item.title}
-            className="w-16 h-24 sm:w-20 sm:h-28 md:w-24 md:h-32 lg:w-28 lg:h-36 object-cover rounded shadow-sm group-hover:shadow-md transition-shadow duration-300"
-          />
-          {item.adult && (
-            <div className="absolute top-1 right-1 bg-red-500 text-white text-[8px] sm:text-[9px] px-1 py-0.5 rounded font-bold">
-              19+
-            </div>
-          )}
+        <div className="flex-shrink-0">
+          <BookCover src={item.cover} alt={item.title} isAdult={item.adult} />
         </div>
       )}
 
