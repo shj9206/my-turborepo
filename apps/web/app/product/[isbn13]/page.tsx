@@ -1,4 +1,5 @@
-import { ProductDetail } from "@/service/detail";
+import { ProductDetail, ProductDetailSkeleton } from "@/service/detail";
+import { Suspense } from "react";
 import { Metadata } from "next";
 import { IProductDetailResponse } from "@/service/detail/interface";
 import { PRODUCT_API_URL } from "@/service/detail/constants/productApiKey";
@@ -78,27 +79,36 @@ export async function generateMetadata({
 }
 
 /**
- * 상품 상세 페이지
- * @param params - 라우트 파라미터 (isbn13)
- * @returns 상품 상세 페이지 컴포넌트
- * @description ISBN을 기반으로 상품 상세 정보를 표시하는 페이지
- * generateMetadata에서 가져온 데이터를 ProductDetail에 전달하여 중복 fetch를 방지합니다.
+ * 상품 데이터를 가져와서 ProductDetail에 전달하는 컴포넌트
+ * @param isbn13 - 상품 ISBN13
+ * @description Suspense와 함께 사용하여 로딩 상태를 처리합니다.
  */
-export default async function ProductPage({ params }: IProductPageProps) {
-  const { isbn13 } = params;
-
-  // generateMetadata와 동일한 데이터를 가져와서 ProductDetail에 전달
+async function ProductDetailWrapper({ isbn13 }: { isbn13: string }) {
   const data = await getProductData(isbn13);
   const item = data?.item?.[0];
 
   if (!item) {
-    // 데이터가 없으면 not-found로 리다이렉트하거나 에러 처리
     throw new Error("상품을 찾을 수 없습니다.");
   }
 
+  return <ProductDetail initialData={data} />;
+}
+
+/**
+ * 상품 상세 페이지
+ * @param params - 라우트 파라미터 (isbn13)
+ * @returns 상품 상세 페이지 컴포넌트
+ * @description ISBN을 기반으로 상품 상세 정보를 표시하는 페이지
+ * Suspense를 사용하여 로딩 중에는 skeleton을 표시합니다.
+ */
+export default function ProductPage({ params }: IProductPageProps) {
+  const { isbn13 } = params;
+
   return (
     <section className="w-full mx-auto flex flex-col">
-      <ProductDetail initialData={data} />
+      <Suspense fallback={<ProductDetailSkeleton />}>
+        <ProductDetailWrapper isbn13={isbn13} />
+      </Suspense>
     </section>
   );
 }
