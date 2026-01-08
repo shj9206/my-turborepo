@@ -20,7 +20,12 @@ export const ProductDetail = ({ isbn13  }: {isbn13:string}) => {
     queryKey: [PRODUCT_API_KEY.PRODUCT, isbn13],
     queryFn: async (): Promise<IProductDetailResponse> => {
       const res = await fetch(`${PRODUCT_API_URL.PRODUCT}/${isbn13}`);
-      if (!res.ok) throw new Error("Failed to fetch data");
+      if (!res.ok) {
+        if (res.status === 404) {
+          throw new Error("404 Not Found");
+        }
+        throw new Error("Failed to fetch data");
+      }
       return res.json();
     },
   });
@@ -28,7 +33,7 @@ export const ProductDetail = ({ isbn13  }: {isbn13:string}) => {
   const item = data?.item?.[0];
 
   if (!item) {
-    return null;
+    throw new Error("404 Not Found");
   }
   const Component = IS_MOBILE ? ProductDetailMo : ProductDetailPc;
   return <Component item={item} />;
